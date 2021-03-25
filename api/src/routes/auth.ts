@@ -11,4 +11,6 @@ router.post("/login", validateSchema(logInSchema), AuthController.login);
 
 router.post("/logout", verifyToken(), AuthController.logout);
 
+router.post("/refresh", verifyToken(), AuthController.refresh);
+
 module.exports = router;

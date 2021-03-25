@@ -15,12 +15,15 @@
       "pg": "^8.5.1",
       "reflect-metadata": "^0.1.10",
       "typeorm": "0.2.31",
+      "typeorm-seeding": "^1.6.1",
       "uuid": "^8.3.2"
    },
    "scripts": {
       "dev": "nodemon src/app.ts",
       "start": "node build/app.js",
       "build": "tsc",
-      "typeorm": "ts-node ./node_modules/typeorm/cli.js"
+      "typeorm": "ts-node ./node_modules/typeorm/cli.js",
+      "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
+      "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
    }
 }

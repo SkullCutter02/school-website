@@ -1,7 +1,8 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, Unique } from "typeorm";
 import Model from "./Model";
 
-@Entity("users")
+@Entity("admin")
+@Unique(["username"])
 export default class Admin extends Model {
   @Column()
   username: string;

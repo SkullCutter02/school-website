@@ -16,13 +16,23 @@ const AuthController = {
       const isValidPassword = await argon2.verify(admin.hash, password);
 
       if (isValidPassword) {
-        const token = JWTService.getToken(admin.uuid);
+        const token = await JWTService.getToken(admin.uuid);
 
         res.cookie("token", token, cookieOptions);
         return res.json(admin);
       } else {
         return res.status(403).json({ msg: "Invalid credentials" });
       }
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ msg: "Something went wrong" });
+    }
+  },
+
+  logout: (req: Request, res: Response) => {
+    try {
+      res.clearCookie("token");
+      return res.json({ logout: "Successful" });
     } catch (err) {
       console.log(err);
       return res.status(500).json({ msg: "Something went wrong" });

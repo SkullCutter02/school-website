@@ -9,4 +9,8 @@ export default class Admin extends Model {
 
   @Column()
   hash: string;
+
+  toJSON(): any {
+    return { ...this, id: undefined, hash: undefined };
+  }
 }

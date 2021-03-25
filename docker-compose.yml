@@ -9,7 +9,8 @@ services:
       context: ./api
       dockerfile: Dockerfile.dev
     volumes:
-      - ./api:/usr/local/app
+      - ./api/src:/usr/local/app/src
+#      - /usr/local/app/node_modules
     environment:
       - PGUSER=postgres
       - PGHOST=postgres

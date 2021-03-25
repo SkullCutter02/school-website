@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-export abstract class Model extends BaseEntity {
+export default abstract class Model extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -9,10 +9,16 @@ const FeatureController = {
     try {
       const { title, body }: TypeOf<typeof createFeatureSchema> = req.body;
 
-      const feature = Feature.create({ title, body });
+      const featureCount = await Feature.count();
 
-      await feature.save();
-      return res.json(feature);
+      if (featureCount < 4) {
+        const feature = Feature.create({ title, body });
+
+        await feature.save();
+        return res.json(feature);
+      } else {
+        return res.status(400).json({ msg: "Maximum number of features is 4" });
+      }
     } catch (err) {
       console.log(err);
       return res.status(500).json({ msg: "Something went wrong" });

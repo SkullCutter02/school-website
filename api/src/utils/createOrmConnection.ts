@@ -1,7 +1,7 @@
 import { createConnection, getConnection, getConnectionOptions } from "typeorm";
 
 export const createOrmConnection = async () => {
-  const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
+  const connectionOptions = await getConnectionOptions(process.env.NODE_ENV !== "test" ? "default" : "test");
 
   return createConnection({ ...connectionOptions, name: "default" });
 };

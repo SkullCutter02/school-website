@@ -14,10 +14,11 @@ afterAll(async () => {
 describe("post route", () => {
   describe("GET /posts", () => {
     it("should return an array", async () => {
-      const res = await request(server).get("/posts");
+      const res = await request(server).get("/posts?page=1&limit=10&filter=");
 
-      expect(res.status).toEqual(200);
-      expect(Array.isArray(res.body)).toBe(true);
+      expect(res.body.posts).toBeTruthy();
+      expect(Array.isArray(res.body.posts)).toBe(true);
+      expect(typeof res.body.hasMore).toEqual("boolean");
     });
   });
 

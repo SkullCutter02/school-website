@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import type { TypeOf } from "yup";
+import { ILike } from "typeorm";
 
 import { createPostSchema } from "../schemas/postSchema";
 import Post from "../entity/Post";
@@ -19,8 +20,21 @@ const PostController = {
 
   find: async (req: Request, res: Response) => {
     try {
-      const posts = await Post.find();
-      return res.json(posts);
+      const { page, limit, filter } = req.query;
+
+      const postCount = await Post.count({ title: filter !== "" ? ILike(`%${filter}%`) : ILike("%") });
+
+      const posts = (
+        await Post.find({
+          take: +limit,
+          skip: (+page - 1) * +limit,
+        })
+      ).filter((post) => post.title.toLowerCase().includes(filter.toString().toLowerCase()));
+
+      return res.json({
+        posts,
+        hasMore: postCount > +page * +limit,
+      });
     } catch (err) {
       console.log(err);
       return res.status(500).json({ msg: "Something went wrong" });

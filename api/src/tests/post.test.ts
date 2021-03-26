@@ -136,4 +136,22 @@ describe("post route", () => {
       expect(res.body.msg).toEqual("Post deleted successfully");
     });
   });
+
+  describe("PATCH /posts/:uuid/views", () => {
+    it("should increment the view count by 1", async () => {
+      const login = await request(server)
+        .post("/auth/login")
+        .send({ username: "admin", password: process.env.ADMIN_PASSWORD });
+
+      const post = await request(server)
+        .post("/posts")
+        .send({ user: "Alan", title: "Hello", body: "Bonjour" })
+        .set("Cookie", login.header["set-cookie"]);
+
+      const res = await request(server).patch(`/posts/${post.body.uuid}/views`);
+
+      expect(res.status).toEqual(200);
+      expect(res.body.views).toEqual(1);
+    });
+  });
 });

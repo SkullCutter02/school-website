@@ -87,6 +87,22 @@ const PostController = {
       return res.status(500).json({ msg: "Something went wrong" });
     }
   },
+
+  incrViews: async (req: Request, res: Response) => {
+    try {
+      const { uuid } = req.params;
+
+      const post = await Post.findOneOrFail({ uuid });
+
+      post.views = post.views + 1;
+
+      await post.save();
+      return res.json(post);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ msg: "Something went wrong" });
+    }
+  },
 };
 
 export default PostController;

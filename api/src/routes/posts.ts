@@ -17,4 +17,6 @@ router.patch("/:uuid", verifyToken(), validateSchema(patchPostSchema), PostContr
 
 router.delete("/:uuid", verifyToken(), PostController.delete);
 
+router.patch("/:uuid/views", PostController.incrViews);
+
 module.exports = router;

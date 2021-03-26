@@ -116,4 +116,24 @@ describe("post route", () => {
       expect(res.body.title).toEqual("Bye");
     });
   });
+
+  describe("DELETE /posts/:uuid", () => {
+    it("should delete the post", async () => {
+      const login = await request(server)
+        .post("/auth/login")
+        .send({ username: "admin", password: process.env.ADMIN_PASSWORD });
+
+      const post = await request(server)
+        .post("/posts")
+        .send({ user: "Alan", title: "Hello", body: "Bonjour" })
+        .set("Cookie", login.header["set-cookie"]);
+
+      const res = await request(server)
+        .delete(`/posts/${post.body.uuid}`)
+        .set("Cookie", login.header["set-cookie"]);
+
+      expect(res.status).toEqual(200);
+      expect(res.body.msg).toEqual("Post deleted successfully");
+    });
+  });
 });

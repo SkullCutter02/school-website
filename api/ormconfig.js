@@ -28,7 +28,7 @@ module.exports = [
     username: process.env.PGUSER,
     password: process.env.PGPASSWORD,
     database: "test_db",
-    synchronize: false,
+    synchronize: true,
     logging: false,
     entities: ["src/entity/**/*.ts"],
     migrations: ["src/migration/**/*.ts"],

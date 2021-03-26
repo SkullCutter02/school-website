@@ -28,6 +28,7 @@ const PostController = {
         await Post.find({
           take: +limit,
           skip: (+page - 1) * +limit,
+          order: { createdAt: "DESC" },
         })
       ).filter((post) => post.title.toLowerCase().includes(filter.toString().toLowerCase()));
 
@@ -67,6 +68,20 @@ const PostController = {
 
       await post.save();
       return res.json(post);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ msg: "Something went wrong" });
+    }
+  },
+
+  delete: async (req: Request, res: Response) => {
+    try {
+      const { uuid } = req.params;
+
+      const post = await Post.findOneOrFail({ uuid });
+
+      await post.remove();
+      return res.json({ msg: "Post deleted successfully" });
     } catch (err) {
       console.log(err);
       return res.status(500).json({ msg: "Something went wrong" });

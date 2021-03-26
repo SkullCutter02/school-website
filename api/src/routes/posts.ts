@@ -15,4 +15,6 @@ router.post("/", verifyToken(), validateSchema(createPostSchema), PostController
 
 router.patch("/:uuid", verifyToken(), validateSchema(patchPostSchema), PostController.patch);
 
+router.delete("/:uuid", verifyToken(), PostController.delete);
+
 module.exports = router;

@@ -1,7 +1,8 @@
 import "reflect-metadata";
-import { createConnection } from "typeorm";
 import express from "express";
 import cookieParser from "cookie-parser";
+
+import { createOrmConnection } from "./utils/createOrmConnection";
 
 const app: express.Application = express();
 
@@ -10,9 +11,9 @@ app.use(cookieParser());
 
 app.use("/auth", require("./routes/auth"));
 
-const PORT = 5000;
+const PORT = process.env.NODE_ENV !== "test" ? 5000 : 5001;
 
-createConnection()
+createOrmConnection()
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server started on port ${PORT}`);

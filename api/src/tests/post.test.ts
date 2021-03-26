@@ -24,9 +24,14 @@ describe("post route", () => {
 
   describe("GET /posts/:uuid", () => {
     it("should return a post object", async () => {
+      const login = await request(server)
+        .post("/auth/login")
+        .send({ username: "admin", password: process.env.ADMIN_PASSWORD });
+
       const post = await request(server)
         .post("/posts")
-        .send({ user: "Alan", title: "Hello", body: "Bonjour" });
+        .send({ user: "Alan", title: "Hello", body: "Bonjour" })
+        .set("Cookie", login.header["set-cookie"]);
 
       const res = await request(server).get(`/posts/${post.body.uuid}`);
 
@@ -43,9 +48,14 @@ describe("post route", () => {
 
   describe("POST /posts", () => {
     it("should return a post object", async () => {
+      const login = await request(server)
+        .post("/auth/login")
+        .send({ username: "admin", password: process.env.ADMIN_PASSWORD });
+
       const res = await request(server)
         .post("/posts")
-        .send({ user: "Alan", title: "Hello", body: "Bonjour" });
+        .send({ user: "Alan", title: "Hello", body: "Bonjour" })
+        .set("Cookie", login.header["set-cookie"]);
 
       expect(res.status).toEqual(200);
       expect(res.body.user).toEqual("Alan");
@@ -58,17 +68,52 @@ describe("post route", () => {
     });
 
     it("should return required field error", async () => {
-      const res = await request(server).post("/posts").send({ title: "Hello", body: "Bonjour" });
+      const login = await request(server)
+        .post("/auth/login")
+        .send({ username: "admin", password: process.env.ADMIN_PASSWORD });
+
+      const res = await request(server)
+        .post("/posts")
+        .send({ title: "Hello", body: "Bonjour" })
+        .set("Cookie", login.header["set-cookie"]);
 
       expect(res.status).toEqual(400);
       expect(res.body.error).toEqual("user is a required field");
     });
 
     it("should return minimum one character error", async () => {
-      const res = await request(server).post("/posts").send({ user: "", title: "Hello", body: "Bonjour" });
+      const login = await request(server)
+        .post("/auth/login")
+        .send({ username: "admin", password: process.env.ADMIN_PASSWORD });
+
+      const res = await request(server)
+        .post("/posts")
+        .send({ user: "", title: "Hello", body: "Bonjour" })
+        .set("Cookie", login.header["set-cookie"]);
 
       expect(res.status).toEqual(400);
       expect(res.body.error).toEqual("user must be at least 1 characters");
+    });
+  });
+
+  describe("PATCH /posts/:uuid", () => {
+    it("should change the title", async () => {
+      const login = await request(server)
+        .post("/auth/login")
+        .send({ username: "admin", password: process.env.ADMIN_PASSWORD });
+
+      const post = await request(server)
+        .post("/posts")
+        .send({ user: "Alan", title: "Hello", body: "Bonjour" })
+        .set("Cookie", login.header["set-cookie"]);
+
+      const res = await request(server)
+        .patch(`/posts/${post.body.uuid}`)
+        .send({ title: "Bye" })
+        .set("Cookie", login.header["set-cookie"]);
+
+      expect(res.status).toEqual(200);
+      expect(res.body.title).toEqual("Bye");
     });
   });
 });

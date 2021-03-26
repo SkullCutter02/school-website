@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import type { TypeOf } from "yup";
 import { ILike } from "typeorm";
 
-import { createPostSchema } from "../schemas/postSchema";
+import { createPostSchema, patchPostSchema } from "../schemas/postSchema";
 import Post from "../entity/Post";
 
 const PostController = {
@@ -46,6 +46,24 @@ const PostController = {
       const { user, title, body }: TypeOf<typeof createPostSchema> = req.body;
 
       const post = Post.create({ user, title, body });
+
+      await post.save();
+      return res.json(post);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ msg: "Something went wrong" });
+    }
+  },
+
+  patch: async (req: Request, res: Response) => {
+    try {
+      const { uuid } = req.params;
+      const { title, body }: TypeOf<typeof patchPostSchema> = req.body;
+
+      const post = await Post.findOneOrFail({ uuid });
+
+      post.title = title || post.title;
+      post.body = body || post.body;
 
       await post.save();
       return res.json(post);

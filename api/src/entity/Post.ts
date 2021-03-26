@@ -13,6 +13,6 @@ export default class Post extends Model {
   @Column()
   body: string;
 
-  @Column()
+  @Column({ default: 0 })
   views: number;
 }

@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/auth", require("./routes/auth"));
+app.use("/posts", require("./routes/posts"));
 
 const PORT = process.env.NODE_ENV !== "test" ? 5000 : 5001;
 

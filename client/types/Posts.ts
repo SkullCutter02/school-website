@@ -1,4 +1,4 @@
-type Post = {
+export type Post = {
   uuid: string;
   createdAt: string;
   updatedAt: string;

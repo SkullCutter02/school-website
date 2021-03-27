@@ -8,6 +8,7 @@ import { Hydrate } from "react-query/hydration";
 import Navbar from "../layout/Navbar";
 
 import "../styles/styles.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClientRef = useRef(null);

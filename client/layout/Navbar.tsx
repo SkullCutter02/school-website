@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const Navbar: React.FC = () => {
   return (
@@ -7,7 +8,9 @@ const Navbar: React.FC = () => {
         <div className="nav-top-line" />
         <div className="nav-banner">
           <div className="left">
-            <h2>Y11 INTERACTIVE WEBSITE</h2>
+            <Link href={"/"}>
+              <h2>Y11 INTERACTIVE WEBSITE</h2>
+            </Link>
           </div>
           <div className="right">
             <img src={"/user.jpg"} alt="user-icon" />
@@ -40,6 +43,7 @@ const Navbar: React.FC = () => {
         .left h2 {
           margin-left: 40px;
           font-size: 1.3rem;
+          cursor: pointer;
         }
 
         .right p {

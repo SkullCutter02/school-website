@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { parseISO, format, formatDistanceToNow } from "date-fns";
+import Link from "next/link";
 
 import { Posts as PostsType } from "../types/Posts";
 import Spinner from "./Spinner";
@@ -47,11 +48,13 @@ const Posts: React.FC = () => {
                       <p className="user">{post.user}</p>
                       <p className="date">
                         {format(parseISO(post.createdAt), "MMM d, yyyy")} •{" "}
-                        {formatDistanceToNow(parseISO(post.createdAt))}
+                        {formatDistanceToNow(parseISO(post.createdAt))} ago
                       </p>
                     </div>
                     <div className="post-info">
-                      <h2>{post.title}</h2>
+                      <Link href={`/post/${post.uuid}`}>
+                        <h2>{post.title}</h2>
+                      </Link>
                       <p>{post.body}</p>
                     </div>
                     <div className="views-info">
@@ -133,7 +136,7 @@ const Posts: React.FC = () => {
         .post {
           border: 0.8px solid #000;
           margin-top: 40px;
-          height: 270px;
+          height: 280px;
           display: flex;
           flex-direction: column;
           padding: 20px 30px;
@@ -185,8 +188,7 @@ const Posts: React.FC = () => {
         }
 
         .views-info {
-          margin-top: 10px;
-          transform: translateY(5px);
+          margin-top: 20px;
         }
 
         .views-info p {

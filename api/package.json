@@ -54,6 +54,7 @@
          "json",
          "node"
       ],
-      "testPathIgnorePatterns": ["./build"]
+      "testPathIgnorePatterns": ["./build"],
+      "setupFilesAfterEnv": ["./src/tests/setupTests.ts"]
    }
 }

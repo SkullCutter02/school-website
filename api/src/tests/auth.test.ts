@@ -1,21 +1,6 @@
 import request = require("supertest");
-import { useRefreshDatabase, useSeeding, runSeeder, tearDownDatabase } from "typeorm-seeding";
 
 import server from "../server";
-import { createOrmConnection, closeOrmConnection } from "../utils/createOrmConnection";
-import CreateAdmin from "../seeds/create-admin.seed";
-
-beforeAll(async () => {
-  await createOrmConnection();
-  await useRefreshDatabase({ connection: "test" });
-  await useSeeding();
-  await runSeeder(CreateAdmin);
-});
-
-afterAll(async () => {
-  await closeOrmConnection();
-  await tearDownDatabase();
-});
 
 describe("auth route", () => {
   describe("POST /auth/login", () => {

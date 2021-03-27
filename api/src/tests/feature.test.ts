@@ -1,15 +1,6 @@
 import request = require("supertest");
 
 import server from "../server";
-import { createOrmConnection, closeOrmConnection } from "../utils/createOrmConnection";
-
-beforeAll(async () => {
-  await createOrmConnection();
-});
-
-afterAll(async () => {
-  await closeOrmConnection();
-});
 
 describe("features route", () => {
   describe("GET /features", () => {
@@ -20,7 +11,7 @@ describe("features route", () => {
       expect(Array.isArray(res.body)).toBe(true);
     });
 
-    it("should have a length bigger or equal to zero", async () => {
+    it("should have a length equal to 2", async () => {
       const login = await request(server)
         .post("/auth/login")
         .send({ username: "admin", password: process.env.ADMIN_PASSWORD });

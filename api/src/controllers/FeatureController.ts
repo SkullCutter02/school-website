@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import type { TypeOf } from "yup";
 
-import { createFeatureSchema } from "../schemas/featureSchema";
+import { createFeatureSchema, patchFeatureSchema } from "../schemas/featureSchema";
 import Feature from "../entity/Feature";
 
 const FeatureController = {
@@ -29,6 +29,24 @@ const FeatureController = {
       } else {
         return res.status(400).json({ msg: "Maximum number of features is 4" });
       }
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ msg: "Something went wrong" });
+    }
+  },
+
+  patch: async (req: Request, res: Response) => {
+    try {
+      const { uuid } = req.params;
+      const { title, body }: TypeOf<typeof patchFeatureSchema> = req.body;
+
+      const feature = await Feature.findOneOrFail({ uuid });
+
+      feature.title = title || feature.title;
+      feature.body = body || feature.body;
+
+      await feature.save();
+      return res.json(feature);
     } catch (err) {
       console.log(err);
       return res.status(500).json({ msg: "Something went wrong" });

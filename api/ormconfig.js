@@ -30,6 +30,7 @@ module.exports = [
     database: "test_db",
     synchronize: true,
     logging: false,
+    dropSchema: true,
     entities: ["src/entity/**/*.ts"],
     migrations: ["src/migration/**/*.ts"],
     subscribers: ["src/subscriber/**/*.ts"],

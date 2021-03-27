@@ -1,15 +1,6 @@
 import request = require("supertest");
 
 import server from "../server";
-import { createOrmConnection, closeOrmConnection } from "../utils/createOrmConnection";
-
-beforeAll(async () => {
-  await createOrmConnection();
-});
-
-afterAll(async () => {
-  await closeOrmConnection();
-});
 
 describe("post route", () => {
   describe("GET /posts", () => {

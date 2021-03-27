@@ -1,7 +1,11 @@
 import React from "react";
 import Link from "next/link";
 
+import useStore from "../state/store";
+
 const Navbar: React.FC = () => {
+  const user = useStore((state) => state.user);
+
   return (
     <>
       <nav>
@@ -14,7 +18,13 @@ const Navbar: React.FC = () => {
           </div>
           <div className="right">
             <img src={"/user.jpg"} alt="user-icon" />
-            <p>Log In</p>
+            {user ? (
+              <p>{user.username}</p>
+            ) : (
+              <Link href={"/admin/auth"}>
+                <p>Log In</p>
+              </Link>
+            )}
           </div>
         </div>
       </nav>

@@ -18,3 +18,7 @@
 input:focus {
   outline: none;
 }
+
+.err-msg {
+  color: #c60d0d;
+}

@@ -52,6 +52,20 @@ const FeatureController = {
       return res.status(500).json({ msg: "Something went wrong" });
     }
   },
+
+  delete: async (req: Request, res: Response) => {
+    try {
+      const { uuid } = req.params;
+
+      const feature = await Feature.findOneOrFail({ uuid });
+
+      await feature.remove();
+      return res.json({ msg: "Feature successfully deleted" });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ msg: "Something went wrong" });
+    }
+  },
 };
 
 export default FeatureController;

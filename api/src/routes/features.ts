@@ -13,4 +13,6 @@ router.post("/", verifyToken(), validateSchema(createFeatureSchema), FeatureCont
 
 router.patch("/:uuid", verifyToken(), validateSchema(patchFeatureSchema), FeatureController.patch);
 
+router.delete("/:uuid", verifyToken(), FeatureController.delete);
+
 module.exports = router;

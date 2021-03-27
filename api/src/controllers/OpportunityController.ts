@@ -5,6 +5,16 @@ import Opportunity from "../entity/Opportunity";
 import { createOpportunitySchema } from "../schemas/opportunitySchema";
 
 const OpportunityController = {
+  find: async (req: Request, res: Response) => {
+    try {
+      const opportunities = await Opportunity.find();
+      return res.json(opportunities);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ msg: "Something went wrong" });
+    }
+  },
+
   create: async (req: Request, res: Response) => {
     try {
       const { imageUrl, name, description, contactEmail }: TypeOf<typeof createOpportunitySchema> = req.body;

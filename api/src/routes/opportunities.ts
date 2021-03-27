@@ -7,6 +7,8 @@ import { createOpportunitySchema } from "../schemas/opportunitySchema";
 
 const router = Router();
 
+router.get("/", OpportunityController.find);
+
 router.post("/", verifyToken(), validateSchema(createOpportunitySchema), OpportunityController.create);
 
 module.exports = router;

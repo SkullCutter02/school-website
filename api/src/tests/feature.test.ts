@@ -12,6 +12,33 @@ afterAll(async () => {
 });
 
 describe("features route", () => {
+  describe("GET /features", () => {
+    it("should return an array", async () => {
+      const res = await request(server).get("/features");
+
+      expect(res.status).toEqual(200);
+      expect(Array.isArray(res.body)).toBe(true);
+    });
+
+    it("should have a length bigger or equal to zero", async () => {
+      const login = await request(server)
+        .post("/auth/login")
+        .send({ username: "admin", password: process.env.ADMIN_PASSWORD });
+
+      for (let i = 0; i < 2; i++) {
+        await request(server)
+          .post("/features")
+          .send({ title: "", body: "Raid Shadow Legends" })
+          .set("Cookie", login.header["set-cookie"]);
+      }
+
+      const res = await request(server).get("/features");
+
+      expect(res.status).toEqual(200);
+      expect(res.body.length).not.toBeLessThan(0);
+    });
+  });
+
   describe("POST /features", () => {
     it("should return minimum one character error", async () => {
       const login = await request(server)

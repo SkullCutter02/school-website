@@ -5,6 +5,16 @@ import { createFeatureSchema } from "../schemas/featureSchema";
 import Feature from "../entity/Feature";
 
 const FeatureController = {
+  find: async (req: Request, res: Response) => {
+    try {
+      const features = await Feature.find();
+      return res.json(features);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ msg: "Something went wrong" });
+    }
+  },
+
   create: async (req: Request, res: Response) => {
     try {
       const { title, body }: TypeOf<typeof createFeatureSchema> = req.body;

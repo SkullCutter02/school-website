@@ -7,6 +7,8 @@ import { createFeatureSchema } from "../schemas/featureSchema";
 
 const router = Router();
 
+router.get("/", FeatureController.find);
+
 router.post("/", verifyToken(), validateSchema(createFeatureSchema), FeatureController.create);
 
 module.exports = router;

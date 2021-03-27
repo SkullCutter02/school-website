@@ -101,6 +101,7 @@ const Posts: React.FC = () => {
         .posts-information h1 {
           font-size: 1.3rem;
           font-weight: 270;
+          transform: translateY(5px);
         }
 
         .search-bar {
@@ -193,6 +194,28 @@ const Posts: React.FC = () => {
           color: #606060;
           letter-spacing: 0.7px;
           margin-left: 2px;
+        }
+
+        .page-controls {
+          margin: 30px 0;
+          float: right;
+          margin-bottom: 200px;
+        }
+
+        .page-controls button {
+          cursor: pointer;
+          margin-right: 20px;
+          border: 1px solid black;
+          padding: 6px 8px;
+          border-radius: 20px;
+          background: #fff;
+          color: #343434;
+        }
+
+        .page-controls button:disabled {
+          border: 1px solid #989898;
+          cursor: initial;
+          color: #acacac;
         }
       `}</style>
     </>

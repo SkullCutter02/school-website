@@ -10,7 +10,6 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ./api/src:/usr/local/app/src
-#      - /usr/local/app/node_modules
     environment:
       - PGUSER=postgres
       - PGHOST=postgres
@@ -19,6 +18,12 @@ services:
       - PGPORT=5432
     env_file:
       - ./api/.env
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./client:/usr/local/app
   nginx:
     restart: always
     build:

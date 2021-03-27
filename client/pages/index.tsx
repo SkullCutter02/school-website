@@ -1,7 +1,13 @@
 import React from "react";
 
+import Hero from "../component/Hero";
+
 const HomePage: React.FC = () => {
-  return <div></div>;
+  return (
+    <>
+      <Hero />
+    </>
+  );
 };
 
 export default HomePage;

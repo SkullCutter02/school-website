@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 
 import useStore from "../state/store";
 
 const Navbar: React.FC = () => {
   const user = useStore((state) => state.user);
+  const updateUser = useStore((state) => state.updateUser);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await fetch("/api/auth/refresh", {
+        method: "POST",
+        credentials: "include",
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        updateUser(data);
+      }
+    };
+
+    fetchUser().then();
+  }, []);
 
   return (
     <>

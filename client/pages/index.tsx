@@ -6,6 +6,7 @@ import { GetServerSideProps } from "next";
 import Hero from "../component/Hero";
 import Features from "../component/Features";
 import Videos from "../component/Videos";
+import Posts from "../component/Posts";
 
 const HomePage: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const HomePage: React.FC = () => {
       <Hero />
       <Features />
       <Videos />
+      <Posts />
     </>
   );
 };
@@ -22,6 +24,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   await queryClient.prefetchQuery("features");
   await queryClient.prefetchQuery("videos");
+  await queryClient.prefetchQuery(["posts", 1, ""]);
 
   return {
     props: {

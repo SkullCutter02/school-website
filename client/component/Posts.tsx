@@ -171,16 +171,17 @@ const Posts: React.FC = () => {
         }
 
         .post-info p {
-          font-weight: 350;
+          font-weight: 300;
           letter-spacing: 0.8px;
           font-size: 0.9rem;
-          line-height: 1.5em;
-          max-height: 7.5em; /* max-height = line-height * max-number-of-lines */
+          line-height: 1.6em;
+          max-height: 6.4em; /* max-height = line-height * max-number-of-lines */
           overflow: hidden;
           color: #292929;
           display: -webkit-box;
-          -webkit-line-clamp: 5;
+          -webkit-line-clamp: 4;
           -webkit-box-orient: vertical;
+          margin-bottom: 10px;
         }
 
         .views-info {
@@ -197,9 +198,8 @@ const Posts: React.FC = () => {
         }
 
         .page-controls {
-          margin: 30px 0;
           float: right;
-          margin-bottom: 200px;
+          margin: 30px 0 70px;
         }
 
         .page-controls button {

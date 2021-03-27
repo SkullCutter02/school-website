@@ -2,6 +2,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRef } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { Hydrate } from "react-query/hydration";
 
 import Navbar from "../layout/Navbar";
@@ -23,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </Head>
         <Navbar />
         <Component {...pageProps} />
+        <ReactQueryDevtools />
       </Hydrate>
     </QueryClientProvider>
   );

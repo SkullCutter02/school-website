@@ -3,6 +3,7 @@ import React from "react";
 import useAuth from "../../../hooks/useAuth";
 import FeaturesEditor from "../../../components/admin/FeaturesEditor";
 import VideosEditor from "../../../components/admin/VideosEditor";
+import OpportunitiesEditor from "../../../components/admin/OpportunitiesEditor";
 
 const DashboardPage = () => {
   useAuth();
@@ -12,6 +13,9 @@ const DashboardPage = () => {
       <main>
         <FeaturesEditor />
         <VideosEditor />
+      </main>
+      <main>
+        <OpportunitiesEditor />
       </main>
 
       <style jsx>{`
@@ -27,7 +31,7 @@ const DashboardPage = () => {
           }
         }
 
-        @media screen and (max-width: 700px) {
+        @media screen and (max-width: 750px) {
           main {
             flex-direction: column;
             align-items: center;

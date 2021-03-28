@@ -85,7 +85,7 @@ const Features: React.FC = () => {
         }
 
         .features-container .feature {
-          width: 100%;
+          min-width: 100%;
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
@@ -148,9 +148,19 @@ const Features: React.FC = () => {
           .features-container .feature p {
             width: 80%;
           }
+
+          .features-container .feature h1 {
+            font-size: 1.5rem;
+          }
         }
 
-        @media screen and (max-width: 700px) {
+        @media screen and (max-width: 1100px) {
+          .features-container .feature h1 {
+            font-size: 1.2rem;
+          }
+        }
+
+        @media screen and (max-width: 800px) {
           .features-container {
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;

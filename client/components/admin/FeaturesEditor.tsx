@@ -39,7 +39,7 @@ const FeaturesEditor: React.FC = () => {
         },
         body: JSON.stringify({
           title: e.target.title.value.trim(),
-          body: e.target.body.value.trim(),
+          body: e.target.body.value.trim().replaceAll(/(?:\r|\n|\r\n)/g, "<br/>"),
         }),
       });
       await queryClient.prefetchQuery("admin-features");
@@ -76,7 +76,7 @@ const FeaturesEditor: React.FC = () => {
         },
         body: JSON.stringify({
           title: e.target.title.value.trim(),
-          body: e.target.body.value.trim(),
+          body: e.target.body.value.trim().replaceAll(/(?:\r|\n|\r\n)/g, "<br/>"),
         }),
       });
       await queryClient.prefetchQuery("admin-features");
@@ -100,7 +100,7 @@ const FeaturesEditor: React.FC = () => {
             {data.map((feature) => (
               <div className="feature" key={feature.uuid}>
                 <p>
-                  {feature.title}: {feature.body}
+                  {feature.title}: {feature.body.replaceAll("<br/>", " ")}
                 </p>
                 <FontAwesomeIcon
                   color={"grey"}

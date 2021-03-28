@@ -57,19 +57,19 @@ const Features: React.FC = () => {
             <>
               <div className="feature">
                 <h1>{data[0]?.title.toUpperCase() || "NOTHING HERE"}</h1>
-                <p>{data[0]?.body || "Nothing here yet..."}</p>
+                <p dangerouslySetInnerHTML={{ __html: data[0]?.body || "Nothing here yet..." }} />
               </div>
               <div className="feature">
                 <h1>{data[1]?.title.toUpperCase() || "NOTHING HERE"}</h1>
-                <p>{data[1]?.body || "Nothing here yet..."}</p>
+                <p dangerouslySetInnerHTML={{ __html: data[1]?.body || "Nothing here yet..." }} />
               </div>
               <div className="feature">
                 <h1>{data[2]?.title.toUpperCase() || "NOTHING HERE"}</h1>
-                <p>{data[2]?.body || "Nothing here yet..."}</p>
+                <p dangerouslySetInnerHTML={{ __html: data[2]?.body || "Nothing here yet..." }} />
               </div>
               <div className="feature">
                 <h1>{data[3]?.title.toUpperCase() || "NOTHING HERE"}</h1>
-                <p>{data[3]?.body || "Nothing here yet..."}</p>
+                <p dangerouslySetInnerHTML={{ __html: data[3]?.body || "Nothing here yet..." }} />
               </div>
             </>
           )}

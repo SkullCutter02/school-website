@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
+import { useQueryClient } from "react-query";
 import Skeleton from "react-loading-skeleton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 import { Feature } from "../../types/Feature";
+import FeatureEditor from "./FeatureEditor";
 
 const FeaturesEditor: React.FC = () => {
+  const [expand, setExpand] = useState<boolean>(false);
+
+  const queryClient = useQueryClient();
+
   const fetchFeatures = async () => {
     const res = await fetch("/api/features");
     return await res.json();
@@ -15,6 +21,27 @@ const FeaturesEditor: React.FC = () => {
   const { isLoading, isError, error, data } = useQuery<Feature[], Error>("admin-features", () =>
     fetchFeatures()
   );
+
+  const addFeature = async (e) => {
+    e.preventDefault();
+
+    try {
+      await fetch("/api/features", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: e.target.title.value,
+          body: e.target.body.value,
+        }),
+      });
+      await queryClient.prefetchQuery("admin-features");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -45,7 +72,13 @@ const FeaturesEditor: React.FC = () => {
               </div>
             ))}
 
-            {data.length < 4 && <p className="add-new-feature">Add Feature</p>}
+            {data.length < 4 && (
+              <p className="add-new-feature" onClick={() => setExpand((old) => !old)}>
+                Add Feature {expand && "(Collapse)"}
+              </p>
+            )}
+
+            {expand && data.length < 4 && <FeatureEditor onSubmit={addFeature} />}
           </div>
         )}
       </div>
@@ -87,6 +120,7 @@ const FeaturesEditor: React.FC = () => {
           color: grey;
           font-size: 0.8rem;
           cursor: pointer;
+          display: inline-block;
         }
       `}</style>
     </>

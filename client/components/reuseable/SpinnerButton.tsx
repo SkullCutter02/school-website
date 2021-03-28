@@ -5,10 +5,20 @@ import Spinner from "./Spinner";
 interface Props {
   text: string;
   isLoading: boolean;
+  fontSize?: number;
   buttonType?: "button" | "submit" | "reset";
+  paddingTb?: number;
+  paddingLr?: number;
 }
 
-const SpinnerButton: React.FC<Props> = ({ text, isLoading, buttonType = "button" }) => {
+const SpinnerButton: React.FC<Props> = ({
+  text,
+  isLoading,
+  buttonType = "button",
+  fontSize = 0.9,
+  paddingTb = 5,
+  paddingLr = 10,
+}) => {
   return (
     <React.Fragment>
       <button type={buttonType}>
@@ -27,7 +37,7 @@ const SpinnerButton: React.FC<Props> = ({ text, isLoading, buttonType = "button"
           width: 20%;
           min-width: 80px;
           min-height: 30px;
-          padding: 5px 10px;
+          padding: ${paddingTb}px ${paddingLr}px;
           border: none;
           border-radius: 4px;
           align-self: flex-end;
@@ -35,7 +45,7 @@ const SpinnerButton: React.FC<Props> = ({ text, isLoading, buttonType = "button"
           color: #fff;
           transition: background 0.5s;
           cursor: pointer;
-          font-size: 0.9rem;
+          font-size: ${fontSize}rem;
         }
 
         button:hover {

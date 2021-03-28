@@ -40,11 +40,13 @@ const PostsEditor: React.FC = () => {
                 <p>
                   {post.title}: {post.body}
                 </p>
-                <FontAwesomeIcon
-                  color={"grey"}
-                  icon={faPencilAlt}
-                  style={{ cursor: "pointer", marginLeft: "5px" }}
-                />
+                <Link href={`/admin/dashboard/post/edit/${post.uuid}`}>
+                  <FontAwesomeIcon
+                    color={"grey"}
+                    icon={faPencilAlt}
+                    style={{ cursor: "pointer", marginLeft: "5px" }}
+                  />
+                </Link>
                 <FontAwesomeIcon
                   color={"grey"}
                   icon={faTrashAlt}

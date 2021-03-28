@@ -9,16 +9,27 @@ interface Props {
   images: string[];
   isLoading: boolean;
   onSubmit: (...any) => void;
+  defaultUser?: string;
+  defaultTitle?: string;
+  defaultBody?: string;
 }
 
-const PostEditorLayout: React.FC<Props> = ({ setImages, images, isLoading, onSubmit }) => {
+const PostEditorLayout: React.FC<Props> = ({
+  setImages,
+  images,
+  isLoading,
+  onSubmit,
+  defaultBody,
+  defaultTitle,
+  defaultUser,
+}) => {
   return (
     <>
       <form className="post-form" onSubmit={onSubmit}>
         <h1>Create Post</h1>
-        <SimpleInput placeholder={"User: "} name={"user"} />
-        <SimpleInput placeholder={"Title: "} name={"title"} margin={30} />
-        <SimpleTextArea name={"body"} placeholder={"Body: "} height={350} />
+        <SimpleInput placeholder={"User: "} name={"user"} defaultValue={defaultUser} />
+        <SimpleInput placeholder={"Title: "} name={"title"} margin={30} defaultValue={defaultTitle} />
+        <SimpleTextArea name={"body"} placeholder={"Body: "} height={350} defaultValue={defaultBody} />
         <input
           type="file"
           name="images"
@@ -68,6 +79,18 @@ const PostEditorLayout: React.FC<Props> = ({ setImages, images, isLoading, onSub
           height: auto;
           align-self: flex-start;
           margin: 20px 0;
+        }
+
+        @media screen and (max-width: 800px) {
+          .post-form {
+            width: 70%;
+          }
+        }
+
+        @media screen and (max-width: 600px) {
+          .post-form {
+            width: 80%;
+          }
         }
       `}</style>
     </>

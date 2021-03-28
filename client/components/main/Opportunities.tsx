@@ -78,7 +78,7 @@ const Opportunities: React.FC = () => {
         }
 
         .opportunity {
-          width: 100%;
+          min-width: 100%;
           box-shadow: #b3b3b3 0 0 6px;
         }
 
@@ -113,6 +113,10 @@ const Opportunities: React.FC = () => {
           font-weight: 300;
           letter-spacing: 0.2px;
           line-height: 1.3em;
+        }
+
+        .contact-email {
+          word-wrap: break-word;
         }
 
         @media screen and (max-width: 1100px) {

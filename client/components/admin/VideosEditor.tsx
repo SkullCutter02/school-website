@@ -39,6 +39,20 @@ const VideosEditor = () => {
     }
   };
 
+  const removeVideo = async (uuid: string) => {
+    try {
+      if (window.confirm("Are you sure you want to delete this video?")) {
+        await fetch(`/api/videos/${uuid}`, {
+          method: "DELETE",
+          credentials: "include",
+        });
+        await queryClient.prefetchQuery("admin-videos");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <div className="videos-editor editor">
@@ -57,6 +71,7 @@ const VideosEditor = () => {
                   color={"grey"}
                   icon={faTrashAlt}
                   style={{ cursor: "pointer", marginLeft: "5px" }}
+                  onClick={() => removeVideo(video.uuid)}
                 />
               </div>
             ))}

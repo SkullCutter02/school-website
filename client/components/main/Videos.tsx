@@ -50,6 +50,7 @@ const Videos = () => {
           min-height: 400px;
           position: relative;
           margin-top: 60px;
+          margin-bottom: 20px;
         }
 
         .videos {

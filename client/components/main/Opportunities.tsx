@@ -67,6 +67,7 @@ const Opportunities: React.FC = () => {
 
         .opportunities {
           display: grid;
+          width: 100%;
           grid-template-columns: 1fr 1fr 1fr 1fr;
           grid-column-gap: 40px;
           grid-row-gap: 30px;
@@ -109,6 +110,30 @@ const Opportunities: React.FC = () => {
           font-weight: 300;
           letter-spacing: 0.2px;
           line-height: 1.3em;
+        }
+
+        @media screen and (max-width: 1100px) {
+          .opportunities {
+            grid-template-columns: 1fr 1fr 1fr;
+          }
+        }
+
+        @media screen and (max-width: 800px) {
+          .opportunities {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+
+        @media screen and (max-width: 500px) {
+          .opportunities {
+            grid-template-columns: 1fr;
+            margin-bottom: 60px;
+          }
+
+          .opportunity {
+            width: 70%;
+            margin: 0 auto;
+          }
         }
       `}</style>
     </>

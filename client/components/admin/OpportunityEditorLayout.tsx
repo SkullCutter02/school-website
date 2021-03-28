@@ -51,6 +51,18 @@ const OpportunityEditorLayout: React.FC<Props> = ({ onSubmit, setImage, isLoadin
           height: auto;
           align-self: flex-start;
         }
+
+        @media screen and (max-width: 800px) {
+          .opportunity-form {
+            width: 70%;
+          }
+        }
+
+        @media screen and (max-width: 600px) {
+          .opportunity-form {
+            width: 80%;
+          }
+        }
       `}</style>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 
@@ -11,6 +11,7 @@ const EditPostPage: React.FC = () => {
   const { uuid } = router.query;
 
   const [images, setImages] = useState<string[]>([]);
+  const [oldImages, setOldImages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchPost = async (uuid: string | string[]) => {
@@ -21,6 +22,14 @@ const EditPostPage: React.FC = () => {
   const { data } = useQuery<Post, Error>(["admin-post", uuid], () => fetchPost(uuid), {
     enabled: !!uuid,
   });
+
+  useEffect(() => {
+    if (data) {
+      if (data.images) {
+        setOldImages(data.images);
+      }
+    }
+  }, [data]);
 
   const editPost = async (e) => {
     e.preventDefault();
@@ -40,7 +49,7 @@ const EditPostPage: React.FC = () => {
           user: e.target.user.value.trim(),
           title: e.target.title.value.trim(),
           body: e.target.body.value.trim().replaceAll(/(?:\r|\n|\r\n)/g, "<br/>"),
-          images: images.concat(data.images),
+          images: images.concat(oldImages),
         }),
       });
 
@@ -59,12 +68,15 @@ const EditPostPage: React.FC = () => {
     <>
       <PostEditorLayout
         setImages={setImages}
-        images={images.concat(data?.images)}
+        images={images.concat(oldImages)}
         isLoading={isLoading}
         onSubmit={editPost}
         defaultUser={data?.user}
         defaultTitle={data?.title}
         defaultBody={data?.body.replaceAll("<br/>", "\n")}
+        setOldImages={setOldImages}
+        headerText={"Edit Post"}
+        buttonText={"Update Post"}
       />
     </>
   );

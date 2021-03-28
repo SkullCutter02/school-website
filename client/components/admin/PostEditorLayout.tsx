@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import SimpleInput from "../reuseable/SimpleInput";
 import SimpleTextArea from "../reuseable/SimpleTextArea";
 import SpinnerButton from "../reuseable/SpinnerButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   setImages: React.Dispatch<React.SetStateAction<string[]>>;
+  setOldImages?: React.Dispatch<React.SetStateAction<string[]>>;
   images: string[];
   isLoading: boolean;
   onSubmit: (...any) => void;
   defaultUser?: string;
   defaultTitle?: string;
   defaultBody?: string;
+  headerText?: string;
+  buttonText?: string;
 }
 
 const PostEditorLayout: React.FC<Props> = ({
@@ -22,11 +27,16 @@ const PostEditorLayout: React.FC<Props> = ({
   defaultBody,
   defaultTitle,
   defaultUser,
+  setOldImages,
+  headerText = "Create Post",
+  buttonText = "Create Post",
 }) => {
+  const filesRef = useRef<HTMLInputElement>(null);
+
   return (
     <>
       <form className="post-form" onSubmit={onSubmit}>
-        <h1>Create Post</h1>
+        <h1>{headerText}</h1>
         <SimpleInput placeholder={"User: "} name={"user"} defaultValue={defaultUser} />
         <SimpleInput placeholder={"Title: "} name={"title"} margin={30} defaultValue={defaultTitle} />
         <SimpleTextArea name={"body"} placeholder={"Body: "} height={350} defaultValue={defaultBody} />
@@ -35,6 +45,7 @@ const PostEditorLayout: React.FC<Props> = ({
           name="images"
           placeholder="Image attachments"
           accept={"image/*"}
+          ref={filesRef}
           onChange={(e) => {
             const arr: string[] = [];
 
@@ -47,11 +58,34 @@ const PostEditorLayout: React.FC<Props> = ({
           multiple
         />
 
-        {images.map((image) => (
-          <img src={image} alt="image" key={image} />
-        ))}
+        {images.map(
+          (image) =>
+            image && (
+              <div className="image" key={image}>
+                <img src={image} alt="image" />
+                <div>
+                  <FontAwesomeIcon
+                    icon={faTimes}
+                    size={"1x"}
+                    color={"red"}
+                    onClick={() => {
+                      filesRef.current.value = "";
 
-        <SpinnerButton text={"Create Post"} isLoading={isLoading} buttonType={"submit"} />
+                      if (image.includes("blob")) {
+                        setImages([]);
+                      } else {
+                        if (setOldImages) {
+                          setOldImages((old) => old.filter((i) => i !== image));
+                        }
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+            )
+        )}
+
+        <SpinnerButton text={buttonText} isLoading={isLoading} buttonType={"submit"} />
       </form>
 
       <style jsx>{`
@@ -71,14 +105,25 @@ const PostEditorLayout: React.FC<Props> = ({
           margin: 30px 0;
         }
 
+        .image {
+          align-self: flex-start;
+          position: relative;
+          margin: 20px 0;
+          max-width: 30%;
+        }
+
+        .image > div {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          cursor: pointer;
+        }
+
         img {
           display: block;
-          max-width: 720px;
-          max-height: 240px;
+          max-width: 100%;
           width: auto;
           height: auto;
-          align-self: flex-start;
-          margin: 20px 0;
         }
 
         @media screen and (max-width: 800px) {

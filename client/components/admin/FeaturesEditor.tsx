@@ -124,18 +124,17 @@ const FeaturesEditor: React.FC = () => {
               </div>
             ))}
 
-            {data.length < 4 ||
-              (isEdit && (
-                <p
-                  className="add-new-feature"
-                  onClick={() => {
-                    setExpand((old) => !old);
-                    setIsEdit(false);
-                  }}
-                >
-                  {!isEdit ? "Add Feature" : "Edit Feature"} {expand && "(Collapse)"}
-                </p>
-              ))}
+            {(data.length < 4 || isEdit) && (
+              <p
+                className="add-new-feature"
+                onClick={() => {
+                  setExpand((old) => !old);
+                  setIsEdit(false);
+                }}
+              >
+                {!isEdit ? "Add Feature" : "Edit Feature"} {expand && "(Collapse)"}
+              </p>
+            )}
 
             {expand &&
               (!isEdit ? (

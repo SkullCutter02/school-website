@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -29,6 +29,8 @@ const OpportunityEditorLayout: React.FC<Props> = ({
   defaultContactEmail,
   buttonText = "Create Opportunity",
 }) => {
+  const filesRef = useRef<HTMLInputElement>(null);
+
   return (
     <>
       <form className="opportunity-form" onSubmit={onSubmit}>
@@ -50,6 +52,7 @@ const OpportunityEditorLayout: React.FC<Props> = ({
           type="file"
           name="image"
           placeholder="Upload an Image"
+          ref={filesRef}
           onChange={(e) => setImage(URL.createObjectURL(e.target.files[0]))}
           accept="image/*"
         />
@@ -58,7 +61,15 @@ const OpportunityEditorLayout: React.FC<Props> = ({
           <div className="image">
             <img src={image} alt="image" />
             <div>
-              <FontAwesomeIcon icon={faTimes} size={"1x"} color={"red"} onClick={() => setImage(null)} />
+              <FontAwesomeIcon
+                icon={faTimes}
+                size={"1x"}
+                color={"red"}
+                onClick={() => {
+                  setImage(null);
+                  filesRef.current.value = "";
+                }}
+              />
             </div>
           </div>
         )}

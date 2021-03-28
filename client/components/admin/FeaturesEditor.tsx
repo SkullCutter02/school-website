@@ -38,6 +38,21 @@ const FeaturesEditor: React.FC = () => {
         }),
       });
       await queryClient.prefetchQuery("admin-features");
+      setExpand(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const removeFeature = async (uuid: string) => {
+    try {
+      if (window.confirm("Are you sure you want to delete this feature?")) {
+        await fetch(`/api/features/${uuid}`, {
+          method: "DELETE",
+          credentials: "include",
+        });
+        await queryClient.prefetchQuery("admin-features");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -68,6 +83,7 @@ const FeaturesEditor: React.FC = () => {
                   color={"grey"}
                   icon={faTrashAlt}
                   style={{ cursor: "pointer", marginLeft: "5px" }}
+                  onClick={() => removeFeature(feature.uuid)}
                 />
               </div>
             ))}

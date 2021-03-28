@@ -8,9 +8,11 @@ export const createPostSchema = yup.object({
   user: yup.string().min(1).max(USER_MAX).required(),
   title: yup.string().min(1).max(TITLE_MAX).required(),
   body: yup.string().min(0).max(BODY_MAX).required(),
+  images: yup.array().of(yup.string()).required(),
 });
 
 export const patchPostSchema = yup.object({
   title: yup.string().min(1).max(TITLE_MAX),
   body: yup.string().min(0).max(BODY_MAX),
+  images: yup.array().of(yup.string()).required(),
 });

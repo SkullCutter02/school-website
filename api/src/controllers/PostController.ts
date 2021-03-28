@@ -44,9 +44,9 @@ const PostController = {
 
   create: async (req: Request, res: Response) => {
     try {
-      const { user, title, body }: TypeOf<typeof createPostSchema> = req.body;
+      const { user, title, body, images }: TypeOf<typeof createPostSchema> = req.body;
 
-      const post = Post.create({ user, title, body });
+      const post = Post.create({ user, title, body, images });
 
       await post.save();
       return res.json(post);
@@ -59,12 +59,13 @@ const PostController = {
   patch: async (req: Request, res: Response) => {
     try {
       const { uuid } = req.params;
-      const { title, body }: TypeOf<typeof patchPostSchema> = req.body;
+      const { title, body, images }: TypeOf<typeof patchPostSchema> = req.body;
 
       const post = await Post.findOneOrFail({ uuid });
 
       post.title = title || post.title;
       post.body = body || post.body;
+      post.images = images || post.images;
 
       await post.save();
       return res.json(post);

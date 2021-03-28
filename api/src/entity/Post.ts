@@ -15,4 +15,7 @@ export default class Post extends Model {
 
   @Column({ default: 0 })
   views: number;
+
+  @Column("simple-array", { nullable: true })
+  images: string[];
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import Skeleton from "react-loading-skeleton";
 import { faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,6 +8,8 @@ import Link from "next/link";
 import { Opportunity } from "../../types/Opportunity";
 
 const OpportunitiesEditor = () => {
+  const queryClient = useQueryClient();
+
   const fetchOpportunities = async () => {
     const res = await fetch("/api/opportunities");
     return await res.json();
@@ -16,6 +18,20 @@ const OpportunitiesEditor = () => {
   const { isLoading, isError, error, data } = useQuery<Opportunity[], Error>("admin-opportunities", () =>
     fetchOpportunities()
   );
+
+  const removeOpportunity = async (uuid: string) => {
+    try {
+      if (window.confirm("Are you sure you want to delete this opportunity?")) {
+        await fetch(`/api/opportunities/${uuid}`, {
+          method: "DELETE",
+          credentials: "include",
+        });
+        await queryClient.prefetchQuery("admin-opportunities");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -41,6 +57,7 @@ const OpportunitiesEditor = () => {
                   color={"grey"}
                   icon={faTrashAlt}
                   style={{ cursor: "pointer", marginLeft: "5px" }}
+                  onClick={() => removeOpportunity(opportunity.uuid)}
                 />
               </div>
             ))}

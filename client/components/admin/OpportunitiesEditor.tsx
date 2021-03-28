@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import Skeleton from "react-loading-skeleton";
 import { faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
 import { Opportunity } from "../../types/Opportunity";
 
@@ -44,7 +45,9 @@ const OpportunitiesEditor = () => {
               </div>
             ))}
 
-            <p className="editor-add-feature">Add Opportunity</p>
+            <Link href={"/admin/dashboard/opportunity/create"}>
+              <p className="editor-add-feature">Add Opportunity</p>
+            </Link>
           </div>
         )}
       </div>

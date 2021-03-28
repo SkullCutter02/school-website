@@ -36,7 +36,8 @@ input:focus {
   margin-bottom: 30px;
 }
 
-.editor > h1 {
+.editor > h1,
+.opportunity-form > h1 {
   font-size: 1.3rem;
   font-weight: 400;
   margin-bottom: 20px;

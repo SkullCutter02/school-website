@@ -35,7 +35,7 @@ const SpinnerButton: React.FC<Props> = ({
         button {
           margin-top: 20px;
           width: 20%;
-          min-width: 80px;
+          min-width: 120px;
           min-height: 30px;
           padding: ${paddingTb}px ${paddingLr}px;
           border: none;

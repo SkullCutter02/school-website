@@ -15,7 +15,9 @@ const FeatureEditor: React.FC<Props> = ({ defaultTitle, defaultBody, onSubmit, b
           <input type="text" name="title" placeholder="Title" defaultValue={defaultTitle} required />
           <textarea name="body" placeholder="Body" defaultValue={defaultBody} />
         </div>
-        <button type="submit">{buttonText}</button>
+        <button type="submit" className="admin-form-button">
+          {buttonText}
+        </button>
       </form>
 
       <style jsx>{`

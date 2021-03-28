@@ -27,6 +27,34 @@ input:focus {
   color: #c60d0d;
 }
 
+.editor {
+  width: 30%;
+  min-width: 270px;
+  border: 0.7px solid grey;
+  padding: 25px;
+  height: fit-content;
+}
+
+.editor > h1 {
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.editor p,
+.editor a {
+  font-weight: 300;
+  font-size: 0.9rem;
+}
+
+.editor-add-feature {
+  text-decoration: underline;
+  color: grey;
+  font-size: 0.8rem !important;
+  cursor: pointer;
+  display: inline-block;
+}
+
 textarea {
   font-family: var(--font-family);
   line-height: 1.5em;

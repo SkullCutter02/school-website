@@ -88,7 +88,7 @@ const FeaturesEditor: React.FC = () => {
 
   return (
     <>
-      <div className="features-editor">
+      <div className="features-editor editor">
         <h1>Features</h1>
 
         {isLoading ? (
@@ -126,7 +126,7 @@ const FeaturesEditor: React.FC = () => {
 
             {(data.length < 4 || isEdit) && (
               <p
-                className="add-new-feature"
+                className="add-new-feature editor-add-feature"
                 onClick={() => {
                   setExpand((old) => !old);
                   setIsEdit(false);
@@ -153,25 +153,6 @@ const FeaturesEditor: React.FC = () => {
       </div>
 
       <style jsx>{`
-        p {
-          font-weight: 300;
-          font-size: 0.9rem;
-        }
-
-        .features-editor {
-          width: 30%;
-          min-width: 270px;
-          border: 0.7px solid grey;
-          position: relative;
-          padding: 25px;
-        }
-
-        .features-editor > h1 {
-          font-size: 1.3rem;
-          font-weight: 400;
-          margin-bottom: 20px;
-        }
-
         .feature {
           margin-bottom: 15px;
           display: flex;
@@ -182,14 +163,6 @@ const FeaturesEditor: React.FC = () => {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-        }
-
-        .add-new-feature {
-          text-decoration: underline;
-          color: grey;
-          font-size: 0.8rem;
-          cursor: pointer;
-          display: inline-block;
         }
       `}</style>
     </>

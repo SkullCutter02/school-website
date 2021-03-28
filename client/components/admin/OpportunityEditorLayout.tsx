@@ -93,6 +93,7 @@ const OpportunityEditorLayout: React.FC<Props> = ({
         .image {
           position: relative;
           align-self: flex-start;
+          max-width: 30%;
         }
 
         .image > div {
@@ -104,10 +105,9 @@ const OpportunityEditorLayout: React.FC<Props> = ({
 
         img {
           display: block;
-          max-width: 720px;
-          max-height: 240px;
           width: auto;
           height: auto;
+          max-width: 100%;
         }
 
         @media screen and (max-width: 800px) {
@@ -119,6 +119,10 @@ const OpportunityEditorLayout: React.FC<Props> = ({
         @media screen and (max-width: 600px) {
           .opportunity-form {
             width: 80%;
+          }
+
+          .image {
+            max-width: 50%;
           }
         }
       `}</style>

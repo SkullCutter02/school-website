@@ -136,6 +136,10 @@ const PostEditorLayout: React.FC<Props> = ({
           .post-form {
             width: 80%;
           }
+
+          .image {
+            max-width: 50%;
+          }
         }
       `}</style>
     </>

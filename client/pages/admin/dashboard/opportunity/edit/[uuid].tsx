@@ -34,7 +34,7 @@ const EditOpportunityPage = () => {
           name: e.target.name.value.trim(),
           description: e.target.description.value.trim().replaceAll(/(?:\r|\n|\r\n)/g, "<br/>"),
           contactEmail: e.target.contactEmail.value.trim(),
-          imageUrl: file.error ? data.imageUrl : file.secure_url,
+          imageUrl: image !== null ? (file.error ? data.imageUrl : file.secure_url) : "",
         }),
       });
 

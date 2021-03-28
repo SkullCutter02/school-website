@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import SimpleInput from "../reuseable/SimpleInput";
 import SimpleTextArea from "../reuseable/SimpleTextArea";
@@ -51,7 +53,16 @@ const OpportunityEditorLayout: React.FC<Props> = ({
           onChange={(e) => setImage(URL.createObjectURL(e.target.files[0]))}
           accept="image/*"
         />
-        {image !== null && <img src={image} alt="" />}
+
+        {image && (
+          <div className="image">
+            <img src={image} alt="image" />
+            <div>
+              <FontAwesomeIcon icon={faTimes} size={"1x"} color={"red"} onClick={() => setImage(null)} />
+            </div>
+          </div>
+        )}
+
         <SpinnerButton text={buttonText} isLoading={isLoading} buttonType={"submit"} />
       </form>
 
@@ -68,13 +79,24 @@ const OpportunityEditorLayout: React.FC<Props> = ({
           align-self: flex-start;
         }
 
+        .image {
+          position: relative;
+          align-self: flex-start;
+        }
+
+        .image > div {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          cursor: pointer;
+        }
+
         img {
           display: block;
           max-width: 720px;
           max-height: 240px;
           width: auto;
           height: auto;
-          align-self: flex-start;
         }
 
         @media screen and (max-width: 800px) {

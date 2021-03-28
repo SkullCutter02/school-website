@@ -48,7 +48,7 @@ const OpportunityController = {
 
       const opportunity = await Opportunity.findOneOrFail({ uuid });
 
-      opportunity.imageUrl = imageUrl || opportunity.imageUrl;
+      opportunity.imageUrl = imageUrl !== null ? imageUrl : opportunity.imageUrl;
       opportunity.name = name || opportunity.name;
       opportunity.description = description || opportunity.description;
       opportunity.contactEmail = contactEmail || opportunity.contactEmail;

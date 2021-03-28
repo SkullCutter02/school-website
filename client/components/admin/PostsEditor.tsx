@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import Skeleton from "react-loading-skeleton";
 import { faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +10,8 @@ import { Posts } from "../../types/Posts";
 const PostsEditor: React.FC = () => {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState<string>("");
+
+  const queryClient = useQueryClient();
 
   const fetchPosts = async (page: number, filter: string) => {
     const res = await fetch(`/api/posts?page=${page}&limit=10&filter=${filter}`);
@@ -23,6 +25,22 @@ const PostsEditor: React.FC = () => {
       keepPreviousData: true,
     }
   );
+
+  const removePost = async (uuid: string) => {
+    try {
+      if (window.confirm("Are you sure you want to delete this post?")) {
+        await fetch(`/api/posts/${uuid}`, {
+          method: "DELETE",
+          credentials: "include",
+        });
+        setPage(1);
+        setFilter("");
+        await queryClient.prefetchQuery(["admin-posts", page, filter]);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -51,6 +69,7 @@ const PostsEditor: React.FC = () => {
                   color={"grey"}
                   icon={faTrashAlt}
                   style={{ cursor: "pointer", marginLeft: "5px" }}
+                  onClick={() => removePost(post.uuid)}
                 />
               </div>
             ))}

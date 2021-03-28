@@ -36,7 +36,9 @@ const Navbar: React.FC = () => {
           <div className="right">
             <img src={"/user.jpg"} alt="user-icon" />
             {user ? (
-              <p>{user.username}</p>
+              <Link href={"/admin/dashboard"}>
+                <p>{user.username}</p>
+              </Link>
             ) : (
               <Link href={"/admin/auth"}>
                 <p>Log In</p>

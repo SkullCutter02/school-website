@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
+import { useRouter } from "next/router";
 
 import AnimatedInput from "../../components/reuseable/AnimatedInput";
 import SpinnerButton from "../../components/reuseable/SpinnerButton";
 import useStore from "../../state/store";
 
 const AuthPage: React.FC = () => {
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const errMsgRef = useRef<HTMLParagraphElement>(null);
@@ -42,8 +45,8 @@ const AuthPage: React.FC = () => {
           errMsgRef.current.textContent = "Something went wrong";
         }
       } else {
-        setIsLoading(false);
         updateUser(data);
+        await router.push("/admin/dashboard");
       }
     } catch (err) {
       console.log(err);

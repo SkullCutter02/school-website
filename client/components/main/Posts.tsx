@@ -55,7 +55,7 @@ const Posts: React.FC = () => {
                       <Link href={`/post/${post.uuid}`}>
                         <h2>{post.title}</h2>
                       </Link>
-                      <p>{post.body}</p>
+                      <p>{post.body.replaceAll("<br/>", "")}</p>
                     </div>
                     <div className="views-info">
                       <p>{post.views} views</p>
@@ -105,32 +105,6 @@ const Posts: React.FC = () => {
           font-size: 1.3rem;
           font-weight: 200;
           transform: translateY(5px);
-        }
-
-        .search-bar {
-          height: 100%;
-          display: flex;
-          align-content: center;
-          margin-right: 10px;
-          border-bottom: 1px solid grey;
-          padding: 7px;
-        }
-
-        .search-bar img {
-          width: 15px;
-          height: 15px;
-        }
-
-        .search-bar input {
-          border: none;
-          margin-left: 10px;
-          font-size: 1rem;
-          font-weight: 200;
-          letter-spacing: 1px;
-        }
-
-        .search-bar input::placeholder {
-          color: #4f4f4f;
         }
 
         .post {
@@ -197,27 +171,6 @@ const Posts: React.FC = () => {
           color: #606060;
           letter-spacing: 0.7px;
           margin-left: 2px;
-        }
-
-        .page-controls {
-          float: right;
-          margin: 30px 0 70px;
-        }
-
-        .page-controls button {
-          cursor: pointer;
-          margin-right: 20px;
-          border: 1px solid black;
-          padding: 6px 8px;
-          border-radius: 20px;
-          background: #fff;
-          color: #343434;
-        }
-
-        .page-controls button:disabled {
-          border: 1px solid #989898;
-          cursor: initial;
-          color: #acacac;
         }
       `}</style>
     </>

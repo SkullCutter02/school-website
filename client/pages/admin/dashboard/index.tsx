@@ -4,6 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import FeaturesEditor from "../../../components/admin/FeaturesEditor";
 import VideosEditor from "../../../components/admin/VideosEditor";
 import OpportunitiesEditor from "../../../components/admin/OpportunitiesEditor";
+import PostsEditor from "../../../components/admin/PostsEditor";
 
 const DashboardPage = () => {
   useAuth();
@@ -16,6 +17,7 @@ const DashboardPage = () => {
       </main>
       <main>
         <OpportunitiesEditor />
+        <PostsEditor />
       </main>
 
       <style jsx>{`

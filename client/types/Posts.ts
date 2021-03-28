@@ -6,6 +6,7 @@ export type Post = {
   title: string;
   body: string;
   views: number;
+  images: string[];
 };
 
 export type Posts = {

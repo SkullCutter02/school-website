@@ -67,8 +67,17 @@ const PostPage: React.FC = () => {
 
               <div className="post-info">
                 <h2>{data.title}</h2>
-                <p>{data.body}</p>
+                <p dangerouslySetInnerHTML={{ __html: data.body }} />
               </div>
+
+              {data?.images?.length > 0 && (
+                <div className="images">
+                  <h4>Image Attachments:</h4>
+                  {data.images.map((image) => (
+                    <img src={image} alt="image" key={image} />
+                  ))}
+                </div>
+              )}
 
               <div className="share-buttons">
                 <div className="icon">
@@ -149,6 +158,20 @@ const PostPage: React.FC = () => {
 
         .icon {
           margin-right: 40px;
+        }
+
+        .images {
+          margin: 60px 0;
+        }
+
+        img {
+          display: block;
+          max-width: 100%;
+          max-height: 240px;
+          width: auto;
+          height: auto;
+          box-shadow: #7e7e7e 0 0 5px;
+          margin: 30px 0;
         }
 
         @media screen and (max-width: 900px) {

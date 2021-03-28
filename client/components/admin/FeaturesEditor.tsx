@@ -143,7 +143,7 @@ const FeaturesEditor: React.FC = () => {
                 <FeatureEditor
                   onSubmit={patchFeature}
                   defaultTitle={defaultTitle}
-                  defaultBody={defaultBody}
+                  defaultBody={defaultBody.replaceAll("<br/>", "/(?:\\r|\\n|\\r\\n)/g")}
                   key={key}
                   buttonText={"Edit Feature"}
                 />

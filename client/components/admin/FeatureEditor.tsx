@@ -4,9 +4,10 @@ interface Props {
   defaultTitle?: string;
   defaultBody?: string;
   onSubmit: FormEventHandler;
+  buttonText: string;
 }
 
-const FeatureEditor: React.FC<Props> = ({ defaultTitle, defaultBody, onSubmit }) => {
+const FeatureEditor: React.FC<Props> = ({ defaultTitle, defaultBody, onSubmit, buttonText }) => {
   return (
     <>
       <form className="feature-editor" onSubmit={onSubmit}>
@@ -14,7 +15,7 @@ const FeatureEditor: React.FC<Props> = ({ defaultTitle, defaultBody, onSubmit })
           <input type="text" name="title" placeholder="Title" defaultValue={defaultTitle} required />
           <textarea name="body" placeholder="Body" defaultValue={defaultBody} />
         </div>
-        <button type="submit">Confirm</button>
+        <button type="submit">{buttonText}</button>
       </form>
 
       <style jsx>{`

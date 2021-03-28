@@ -10,6 +10,11 @@ import FeatureEditor from "./FeatureEditor";
 
 const FeaturesEditor: React.FC = () => {
   const [expand, setExpand] = useState<boolean>(false);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [defaultTitle, setDefaultTitle] = useState<string>("");
+  const [defaultBody, setDefaultBody] = useState<string>("");
+  const [currentUuid, setCurrentUuid] = useState<string>("");
+  const [key, setKey] = useState<number>(1);
 
   const queryClient = useQueryClient();
 
@@ -33,12 +38,13 @@ const FeaturesEditor: React.FC = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          title: e.target.title.value,
-          body: e.target.body.value,
+          title: e.target.title.value.trim(),
+          body: e.target.body.value.trim(),
         }),
       });
       await queryClient.prefetchQuery("admin-features");
       setExpand(false);
+      setIsEdit(false);
     } catch (err) {
       console.log(err);
     }
@@ -58,6 +64,28 @@ const FeaturesEditor: React.FC = () => {
     }
   };
 
+  const patchFeature = async (e) => {
+    e.preventDefault();
+
+    try {
+      await fetch(`/api/features/${currentUuid}`, {
+        method: "PATCH",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: e.target.title.value.trim(),
+          body: e.target.body.value.trim(),
+        }),
+      });
+      await queryClient.prefetchQuery("admin-features");
+      setExpand(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <div className="features-editor">
@@ -70,7 +98,7 @@ const FeaturesEditor: React.FC = () => {
         ) : (
           <div className="features">
             {data.map((feature) => (
-              <div className="feature">
+              <div className="feature" key={feature.uuid}>
                 <p>
                   {feature.title}: {feature.body}
                 </p>
@@ -78,6 +106,14 @@ const FeaturesEditor: React.FC = () => {
                   color={"grey"}
                   icon={faPencilAlt}
                   style={{ cursor: "pointer", marginLeft: "5px" }}
+                  onClick={() => {
+                    setExpand(true);
+                    setIsEdit(true);
+                    setDefaultTitle(feature.title);
+                    setDefaultBody(feature.body);
+                    setCurrentUuid(feature.uuid);
+                    setKey((old) => old + 1);
+                  }}
                 />
                 <FontAwesomeIcon
                   color={"grey"}
@@ -88,13 +124,31 @@ const FeaturesEditor: React.FC = () => {
               </div>
             ))}
 
-            {data.length < 4 && (
-              <p className="add-new-feature" onClick={() => setExpand((old) => !old)}>
-                Add Feature {expand && "(Collapse)"}
-              </p>
-            )}
+            {data.length < 4 ||
+              (isEdit && (
+                <p
+                  className="add-new-feature"
+                  onClick={() => {
+                    setExpand((old) => !old);
+                    setIsEdit(false);
+                  }}
+                >
+                  {!isEdit ? "Add Feature" : "Edit Feature"} {expand && "(Collapse)"}
+                </p>
+              ))}
 
-            {expand && data.length < 4 && <FeatureEditor onSubmit={addFeature} />}
+            {expand &&
+              (!isEdit ? (
+                <FeatureEditor onSubmit={addFeature} buttonText={"Confirm"} />
+              ) : (
+                <FeatureEditor
+                  onSubmit={patchFeature}
+                  defaultTitle={defaultTitle}
+                  defaultBody={defaultBody}
+                  key={key}
+                  buttonText={"Edit Feature"}
+                />
+              ))}
           </div>
         )}
       </div>

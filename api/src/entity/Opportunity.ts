@@ -4,7 +4,7 @@ import Model from "./Model";
 
 @Entity("opportunities")
 export default class Opportunity extends Model {
-  @Column()
+  @Column({ nullable: true })
   imageUrl: string;
 
   @Column()

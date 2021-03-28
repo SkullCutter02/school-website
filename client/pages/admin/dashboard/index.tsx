@@ -20,6 +20,19 @@ const DashboardPage = () => {
           display: flex;
           justify-content: space-evenly;
         }
+
+        @media screen and (max-width: 800px) {
+          main {
+            justify-content: space-between;
+          }
+        }
+
+        @media screen and (max-width: 700px) {
+          main {
+            flex-direction: column;
+            align-items: center;
+          }
+        }
       `}</style>
     </>
   );

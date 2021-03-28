@@ -33,6 +33,7 @@ input:focus {
   border: 0.7px solid grey;
   padding: 25px;
   height: fit-content;
+  margin-bottom: 30px;
 }
 
 .editor > h1 {

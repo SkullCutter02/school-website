@@ -38,7 +38,10 @@ const Opportunities: React.FC = () => {
                   <div className="opportunity-text">
                     <h2>{opportunity.name.toUpperCase()}</h2>
                     <div className="line" />
-                    <p className="description">{opportunity.description}</p>
+                    <p
+                      className="description"
+                      dangerouslySetInnerHTML={{ __html: opportunity.description }}
+                    />
                     <div className="line" />
                     <p className="contact-email">Contact Email: {opportunity.contactEmail}</p>
                   </div>

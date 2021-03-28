@@ -5,6 +5,18 @@ import Opportunity from "../entity/Opportunity";
 import { createOpportunitySchema, patchOpportunitySchema } from "../schemas/opportunitySchema";
 
 const OpportunityController = {
+  findOne: async (req: Request, res: Response) => {
+    try {
+      const { uuid } = req.params;
+
+      const opportunity = await Opportunity.findOneOrFail({ uuid });
+      return res.json(opportunity);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ msg: "Something went wrong" });
+    }
+  },
+
   find: async (req: Request, res: Response) => {
     try {
       const opportunities = await Opportunity.find();

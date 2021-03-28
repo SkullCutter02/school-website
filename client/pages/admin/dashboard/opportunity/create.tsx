@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import OpportunityEditorLayout from "../../../../components/admin/OpportunityEditorLayout";
 import useAuth from "../../../../hooks/useAuth";
 import { useRouter } from "next/router";
+import uploadImage from "../../../../utils/uploadImage";
 
 const CreateOpportunityPage: React.FC = () => {
   useAuth();
@@ -18,16 +19,7 @@ const CreateOpportunityPage: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const files = e.target.image.files;
-      const formData = new FormData();
-      formData.append("file", files[0]);
-      formData.append("upload_preset", "school-website-images");
-
-      const imageRes = await fetch("https://api.cloudinary.com/v1_1/dmdtixluw/image/upload", {
-        method: "POST",
-        body: formData,
-      });
-      const file = await imageRes.json();
+      const file = await uploadImage(e.target.image.files);
 
       const res = await fetch("/api/opportunities", {
         method: "POST",
@@ -36,9 +28,9 @@ const CreateOpportunityPage: React.FC = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: e.target.name.value,
-          description: e.target.description.value,
-          contactEmail: e.target.contactEmail.value,
+          name: e.target.name.value.trim(),
+          description: e.target.description.value.trim().replaceAll(/(?:\r|\n|\r\n)/g, "<br/>"),
+          contactEmail: e.target.contactEmail.value.trim(),
           imageUrl: file.secure_url,
         }),
       });
@@ -61,6 +53,7 @@ const CreateOpportunityPage: React.FC = () => {
         image={image}
         setImage={setImage}
         isLoading={isLoading}
+        headerText={"Create Opportunity"}
       />
     </>
   );

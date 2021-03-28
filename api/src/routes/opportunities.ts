@@ -7,6 +7,8 @@ import { createOpportunitySchema, patchOpportunitySchema } from "../schemas/oppo
 
 const router = Router();
 
+router.get("/:uuid", OpportunityController.findOne);
+
 router.get("/", OpportunityController.find);
 
 router.post("/", verifyToken(), validateSchema(createOpportunitySchema), OpportunityController.create);

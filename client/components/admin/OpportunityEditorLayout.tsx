@@ -9,16 +9,41 @@ interface Props {
   setImage: React.Dispatch<React.SetStateAction<string>>;
   isLoading: boolean;
   image: string;
+  headerText: string;
+  defaultName?: string;
+  defaultDescription?: string;
+  defaultContactEmail?: string;
+  buttonText?: string;
 }
 
-const OpportunityEditorLayout: React.FC<Props> = ({ onSubmit, setImage, isLoading, image }) => {
+const OpportunityEditorLayout: React.FC<Props> = ({
+  onSubmit,
+  setImage,
+  isLoading,
+  image,
+  headerText,
+  defaultName,
+  defaultDescription,
+  defaultContactEmail,
+  buttonText = "Create Opportunity",
+}) => {
   return (
     <>
       <form className="opportunity-form" onSubmit={onSubmit}>
-        <h1>Create Opportunity</h1>
-        <SimpleInput placeholder={"Name: "} name={"name"} />
-        <SimpleTextArea name={"description"} placeholder={"Description: "} height={140} margin={30} />
-        <SimpleInput placeholder={"Contact Email: "} name={"contactEmail"} />
+        <h1>{headerText}</h1>
+        <SimpleInput placeholder={"Name: "} name={"name"} defaultValue={defaultName} />
+        <SimpleTextArea
+          name={"description"}
+          placeholder={"Description: "}
+          defaultValue={defaultDescription}
+          height={140}
+          margin={30}
+        />
+        <SimpleInput
+          placeholder={"Contact Email: "}
+          name={"contactEmail"}
+          defaultValue={defaultContactEmail}
+        />
         <input
           type="file"
           name="image"
@@ -27,7 +52,7 @@ const OpportunityEditorLayout: React.FC<Props> = ({ onSubmit, setImage, isLoadin
           accept="image/*"
         />
         {image !== null && <img src={image} alt="" />}
-        <SpinnerButton text={"Create Opportunity"} isLoading={isLoading} buttonType={"submit"} />
+        <SpinnerButton text={buttonText} isLoading={isLoading} buttonType={"submit"} />
       </form>
 
       <style jsx>{`

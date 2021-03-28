@@ -48,11 +48,13 @@ const OpportunitiesEditor = () => {
                 <p>
                   {opportunity.name}: {opportunity.description}
                 </p>
-                <FontAwesomeIcon
-                  color={"grey"}
-                  icon={faPencilAlt}
-                  style={{ cursor: "pointer", marginLeft: "5px" }}
-                />
+                <Link href={opportunity && `/admin/dashboard/opportunity/edit/${opportunity.uuid}`}>
+                  <FontAwesomeIcon
+                    color={"grey"}
+                    icon={faPencilAlt}
+                    style={{ cursor: "pointer", marginLeft: "5px" }}
+                  />
+                </Link>
                 <FontAwesomeIcon
                   color={"grey"}
                   icon={faTrashAlt}

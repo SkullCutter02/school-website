@@ -3,8 +3,8 @@ import { useQuery } from "react-query";
 import { parseISO, format, formatDistanceToNow } from "date-fns";
 import Link from "next/link";
 
-import { Posts as PostsType } from "../types/Posts";
-import Spinner from "./Spinner";
+import { Posts as PostsType } from "../../types/Posts";
+import Spinner from "../reuseable/Spinner";
 
 const Posts: React.FC = () => {
   const [page, setPage] = useState<number>(1);
@@ -103,7 +103,7 @@ const Posts: React.FC = () => {
 
         .posts-information h1 {
           font-size: 1.3rem;
-          font-weight: 270;
+          font-weight: 200;
           transform: translateY(5px);
         }
 

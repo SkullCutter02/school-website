@@ -1,9 +1,10 @@
 import React from "react";
 
-import Hero from "../component/Hero";
-import Features from "../component/Features";
-import Videos from "../component/Videos";
-import Posts from "../component/Posts";
+import Hero from "../components/main/Hero";
+import Features from "../components/main/Features";
+import Videos from "../components/main/Videos";
+import Opportunities from "../components/main/Opportunities";
+import Posts from "../components/main/Posts";
 
 const HomePage: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ const HomePage: React.FC = () => {
       <Hero />
       <Features />
       <Videos />
+      <Opportunities />
       <Posts />
     </>
   );

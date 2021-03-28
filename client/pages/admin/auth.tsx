@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 
-import AnimatedInput from "../../component/AnimatedInput";
-import SpinnerButton from "../../component/SpinnerButton";
+import AnimatedInput from "../../components/reuseable/AnimatedInput";
+import SpinnerButton from "../../components/reuseable/SpinnerButton";
 import useStore from "../../state/store";
 
 const AuthPage: React.FC = () => {

@@ -2,8 +2,8 @@ import React from "react";
 import { useQuery } from "react-query";
 import YouTube from "react-youtube";
 
-import { Video } from "../types/Video";
-import Spinner from "./Spinner";
+import { Video } from "../../types/Video";
+import Spinner from "../reuseable/Spinner";
 
 const Videos = () => {
   const fetchVideos = async () => {
@@ -50,7 +50,6 @@ const Videos = () => {
           min-height: 400px;
           position: relative;
           margin-top: 60px;
-          margin-bottom: 70px;
         }
 
         .videos {

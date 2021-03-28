@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
-import { Feature } from "../types/Feature";
+import { Feature } from "../../types/Feature";
 
 const Features: React.FC = () => {
   const fetchFeatures = async () => {

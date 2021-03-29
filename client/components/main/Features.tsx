@@ -17,11 +17,11 @@ const Features: React.FC = () => {
 
   return (
     <>
-      <SkeletonTheme color={"#606060"} highlightColor={"#777777"}>
-        <div className="features-container">
-          {isLoading ? (
-            <>
-              <div className="feature">
+      <div className="features-container">
+        {isLoading ? (
+          <>
+            <SkeletonTheme color={"#606060"} highlightColor={"#949494"}>
+              <div className="feature one">
                 <h1>
                   <Skeleton width={200} />
                 </h1>
@@ -29,7 +29,9 @@ const Features: React.FC = () => {
                   <Skeleton height={windowWidth > 850 ? 300 : 140} />
                 </p>
               </div>
-              <div className="feature">
+            </SkeletonTheme>
+            <SkeletonTheme color={"#818181"} highlightColor={"#9d9d9d"}>
+              <div className="feature two">
                 <h1>
                   <Skeleton width={200} />
                 </h1>
@@ -37,7 +39,9 @@ const Features: React.FC = () => {
                   <Skeleton height={windowWidth > 850 ? 300 : 140} />
                 </p>
               </div>
-              <div className="feature">
+            </SkeletonTheme>
+            <SkeletonTheme color={"#fcfcfc"} highlightColor={"#eeeeee"}>
+              <div className="feature three">
                 <h1>
                   <Skeleton width={200} />
                 </h1>
@@ -45,7 +49,9 @@ const Features: React.FC = () => {
                   <Skeleton height={windowWidth > 850 ? 300 : 140} />
                 </p>
               </div>
-              <div className="feature">
+            </SkeletonTheme>
+            <SkeletonTheme color={"#34b887"} highlightColor={"#219f6e"}>
+              <div className="feature four">
                 <h1>
                   <Skeleton width={200} />
                 </h1>
@@ -53,31 +59,31 @@ const Features: React.FC = () => {
                   <Skeleton height={windowWidth > 850 ? 300 : 140} />
                 </p>
               </div>
-            </>
-          ) : isError ? (
-            <p>{error.message}</p>
-          ) : (
-            <>
-              <div className="feature">
-                <h1>{data[0]?.title.toUpperCase() || "NOTHING HERE"}</h1>
-                <p dangerouslySetInnerHTML={{ __html: data[0]?.body || "Nothing here yet..." }} />
-              </div>
-              <div className="feature">
-                <h1>{data[1]?.title.toUpperCase() || "NOTHING HERE"}</h1>
-                <p dangerouslySetInnerHTML={{ __html: data[1]?.body || "Nothing here yet..." }} />
-              </div>
-              <div className="feature">
-                <h1>{data[2]?.title.toUpperCase() || "NOTHING HERE"}</h1>
-                <p dangerouslySetInnerHTML={{ __html: data[2]?.body || "Nothing here yet..." }} />
-              </div>
-              <div className="feature">
-                <h1>{data[3]?.title.toUpperCase() || "NOTHING HERE"}</h1>
-                <p dangerouslySetInnerHTML={{ __html: data[3]?.body || "Nothing here yet..." }} />
-              </div>
-            </>
-          )}
-        </div>
-      </SkeletonTheme>
+            </SkeletonTheme>
+          </>
+        ) : isError ? (
+          <p>{error.message}</p>
+        ) : (
+          <>
+            <div className="feature one">
+              <h1>{data[0]?.title.toUpperCase() || "NOTHING HERE"}</h1>
+              <p dangerouslySetInnerHTML={{ __html: data[0]?.body || "Nothing here yet..." }} />
+            </div>
+            <div className="feature two">
+              <h1>{data[1]?.title.toUpperCase() || "NOTHING HERE"}</h1>
+              <p dangerouslySetInnerHTML={{ __html: data[1]?.body || "Nothing here yet..." }} />
+            </div>
+            <div className="feature three">
+              <h1>{data[2]?.title.toUpperCase() || "NOTHING HERE"}</h1>
+              <p dangerouslySetInnerHTML={{ __html: data[2]?.body || "Nothing here yet..." }} />
+            </div>
+            <div className="feature four">
+              <h1>{data[3]?.title.toUpperCase() || "NOTHING HERE"}</h1>
+              <p dangerouslySetInnerHTML={{ __html: data[3]?.body || "Nothing here yet..." }} />
+            </div>
+          </>
+        )}
+      </div>
 
       <style jsx>{`
         .features-container {
@@ -114,33 +120,33 @@ const Features: React.FC = () => {
           width: 60%;
         }
 
-        .features-container .feature:nth-child(1) {
+        .features-container .one {
           background: #000;
           color: #fff;
         }
 
-        .features-container .feature:nth-child(2) {
+        .features-container .two {
           background: #404040;
           color: #4ad19f;
         }
 
-        .features-container .feature:nth-child(1) p,
-        .features-container .feature:nth-child(2) p {
+        .features-container .one p,
+        .features-container .two p {
           color: #fff;
         }
 
-        .features-container .feature:nth-child(3) {
+        .features-container .three {
           background: #ededed;
           color: #4ad19f;
         }
 
-        .features-container .feature:nth-child(4) {
+        .features-container .four {
           background: #4ad19f;
           color: #fff;
         }
 
-        .features-container .feature:nth-child(3) p,
-        .features-container .feature:nth-child(4) p {
+        .features-container .three p,
+        .features-container .four p {
           color: #000;
         }
 

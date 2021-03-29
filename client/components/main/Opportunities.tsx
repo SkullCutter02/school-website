@@ -111,6 +111,15 @@ const Opportunities: React.FC = () => {
           line-height: 1.3em;
         }
 
+        .description {
+          /* line-height: 1.3em */
+          max-height: 6.5em;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 5;
+          -webkit-box-orient: vertical;
+        }
+
         .line {
           height: 0.7px;
           width: 100%;

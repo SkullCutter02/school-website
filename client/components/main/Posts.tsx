@@ -36,7 +36,7 @@ const Posts: React.FC = () => {
             <p>{error.message}</p>
           ) : (
             data &&
-            data?.posts?.length > 0 && (
+            (data?.posts?.length > 0 || filter !== "") && (
               <>
                 <div className="posts-information">
                   <h1>Posts</h1>

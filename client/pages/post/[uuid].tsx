@@ -207,6 +207,7 @@ const PostPage: React.FC = () => {
           background: grey;
           opacity: 80%;
           transform: translateY(-74px);
+          cursor: pointer;
         }
 
         .image-modal {

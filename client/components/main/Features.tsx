@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import { Feature } from "../../types/Feature";
+import useWindowWidth from "../../hooks/useWindowWidth";
 
 const Features: React.FC = () => {
   const fetchFeatures = async () => {
@@ -11,6 +12,8 @@ const Features: React.FC = () => {
   };
 
   const { isLoading, isError, error, data } = useQuery<Feature[], Error>("features", () => fetchFeatures());
+
+  const windowWidth = useWindowWidth();
 
   return (
     <>
@@ -23,7 +26,7 @@ const Features: React.FC = () => {
                   <Skeleton width={200} />
                 </h1>
                 <p>
-                  <Skeleton height={300} />
+                  <Skeleton height={windowWidth > 850 ? 300 : 140} />
                 </p>
               </div>
               <div className="feature">
@@ -31,7 +34,7 @@ const Features: React.FC = () => {
                   <Skeleton width={200} />
                 </h1>
                 <p>
-                  <Skeleton height={300} />
+                  <Skeleton height={windowWidth > 850 ? 300 : 140} />
                 </p>
               </div>
               <div className="feature">
@@ -39,7 +42,7 @@ const Features: React.FC = () => {
                   <Skeleton width={200} />
                 </h1>
                 <p>
-                  <Skeleton height={300} />
+                  <Skeleton height={windowWidth > 850 ? 300 : 140} />
                 </p>
               </div>
               <div className="feature">
@@ -47,7 +50,7 @@ const Features: React.FC = () => {
                   <Skeleton width={200} />
                 </h1>
                 <p>
-                  <Skeleton height={300} />
+                  <Skeleton height={windowWidth > 850 ? 300 : 140} />
                 </p>
               </div>
             </>

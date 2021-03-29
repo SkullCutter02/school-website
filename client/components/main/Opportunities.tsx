@@ -18,44 +18,55 @@ const Opportunities: React.FC = () => {
     <>
       <main>
         <div className="opportunities-container">
-          <h1>Opportunities and Clubs</h1>
-
           {isLoading ? (
-            <Spinner size={50} />
+            <>
+              <Spinner size={50} />
+              <div className="placeholder" />
+            </>
           ) : isError ? (
             <p>{error.message}</p>
           ) : (
-            <div className="opportunities">
-              {data.map((opportunity) => (
-                <div className="opportunity">
-                  <img
-                    src={
-                      opportunity.imageUrl ||
-                      "https://aliceasmartialarts.com/wp-content/uploads/2017/04/default-image.jpg"
-                    }
-                    alt="image"
-                  />
-                  <div className="opportunity-text">
-                    <h2>{opportunity.name.toUpperCase()}</h2>
-                    <div className="line" />
-                    <p
-                      className="description"
-                      dangerouslySetInnerHTML={{ __html: opportunity.description }}
-                    />
-                    <div className="line" />
-                    <p className="contact-email">Contact Email: {opportunity.contactEmail}</p>
-                  </div>
+            data &&
+            data?.length > 0 && (
+              <>
+                <h1>Opportunities and Clubs</h1>
+                <div className="opportunities">
+                  {data.map((opportunity) => (
+                    <div className="opportunity">
+                      <img
+                        src={
+                          opportunity.imageUrl ||
+                          "https://aliceasmartialarts.com/wp-content/uploads/2017/04/default-image.jpg"
+                        }
+                        alt="image"
+                      />
+                      <div className="opportunity-text">
+                        <h2>{opportunity.name.toUpperCase()}</h2>
+                        <div className="line" />
+                        <p
+                          className="description"
+                          dangerouslySetInnerHTML={{ __html: opportunity.description }}
+                        />
+                        <div className="line" />
+                        <p className="contact-email">Contact Email: {opportunity.contactEmail}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )
           )}
         </div>
       </main>
 
       <style jsx>{`
         main {
-          min-height: 200px;
           position: relative;
+        }
+
+        .placeholder {
+          height: 400px;
+          visibility: hidden;
         }
 
         .opportunities-container {

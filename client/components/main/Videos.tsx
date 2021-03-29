@@ -17,13 +17,17 @@ const Videos = () => {
     <>
       <div className="videos-container">
         {isLoading ? (
-          <Spinner size={50} />
+          <>
+            <Spinner size={50} />
+            <div className="placeholder" />
+          </>
         ) : isError ? (
           <p>{error.message}</p>
         ) : (
           <div className="videos">
-            {data.length === 1 ? (
+            {data?.length === 1 ? (
               <>
+                <div className="placeholder" />
                 <div className="video one-video">
                   <div className="youtube-video">
                     <YouTube videoId={data[0].link.split("v=")[1]} />
@@ -32,7 +36,7 @@ const Videos = () => {
               </>
             ) : (
               <>
-                {data.map((video) => (
+                {data?.map((video) => (
                   <div className="video" key={video.uuid}>
                     <div className="youtube-video">
                       <YouTube videoId={video.link.split("v=")[1]} />
@@ -47,10 +51,14 @@ const Videos = () => {
 
       <style jsx>{`
         .videos-container {
-          min-height: 400px;
           position: relative;
           margin-top: 60px;
           margin-bottom: 20px;
+        }
+
+        .placeholder {
+          height: 400px;
+          visibility: hidden;
         }
 
         .videos {

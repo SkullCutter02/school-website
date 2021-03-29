@@ -27,67 +27,75 @@ const Posts: React.FC = () => {
     <>
       <main>
         <div className="posts-container">
-          <div className="posts-information">
-            <h1>Posts</h1>
-            <div className="search-bar">
-              <img src={"/searchbar-icon.png"} alt="searchbar-icon" />
-              <input type="text" placeholder="Search" onChange={(e) => setFilter(e.target.value)} />
-            </div>
-          </div>
-
           {isLoading ? (
-            <Spinner size={50} />
+            <>
+              <Spinner size={50} />
+              <div className="placeholder" />
+            </>
           ) : isError ? (
             <p>{error.message}</p>
           ) : (
-            data && (
-              <div className="posts">
-                {data.posts.map((post) => (
-                  <div className="post" key={post.uuid}>
-                    <div className="user-info">
-                      <p className="user">{post.user}</p>
-                      <p className="date">
-                        {format(parseISO(post.createdAt), "MMM d, yyyy")} •{" "}
-                        {formatDistanceToNow(parseISO(post.createdAt))} ago
-                      </p>
-                    </div>
-                    <div className="post-info">
-                      <Link href={`/post/${post.uuid}`}>
-                        <h2>{post.title}</h2>
-                      </Link>
-                      <p>{post.body.replaceAll("<br/>", "")}</p>
-                    </div>
-                    <div className="views-info">
-                      <p>{post.views} views</p>
-                    </div>
+            data &&
+            data?.posts?.length > 0 && (
+              <>
+                <div className="posts-information">
+                  <h1>Posts</h1>
+                  <div className="search-bar">
+                    <img src={"/searchbar-icon.png"} alt="searchbar-icon" />
+                    <input type="text" placeholder="Search" onChange={(e) => setFilter(e.target.value)} />
                   </div>
-                ))}
-              </div>
+                </div>
+                <div className="posts">
+                  {data.posts.map((post) => (
+                    <div className="post" key={post.uuid}>
+                      <div className="user-info">
+                        <p className="user">{post.user}</p>
+                        <p className="date">
+                          {format(parseISO(post.createdAt), "MMM d, yyyy")} •{" "}
+                          {formatDistanceToNow(parseISO(post.createdAt))} ago
+                        </p>
+                      </div>
+                      <div className="post-info">
+                        <Link href={`/post/${post.uuid}`}>
+                          <h2>{post.title}</h2>
+                        </Link>
+                        <p>{post.body.replaceAll("<br/>", "")}</p>
+                      </div>
+                      <div className="views-info">
+                        <p>{post.views} views</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="page-controls">
+                  <button onClick={() => setPage((old) => Math.max(old - 1, 1))} disabled={page === 1}>
+                    Previous Page
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (!isPreviousData && data.hasMore) {
+                        setPage((old) => old + 1);
+                      }
+                    }}
+                    disabled={isPreviousData || !data?.hasMore}
+                  >
+                    Next Page
+                  </button>
+                </div>
+              </>
             )
           )}
-
-          <div className="page-controls">
-            <button onClick={() => setPage((old) => Math.max(old - 1, 1))} disabled={page === 1}>
-              Previous Page
-            </button>
-            <button
-              onClick={() => {
-                if (!isPreviousData && data.hasMore) {
-                  setPage((old) => old + 1);
-                }
-              }}
-              disabled={isPreviousData || !data?.hasMore}
-            >
-              Next Page
-            </button>
-          </div>
         </div>
       </main>
 
       <style jsx>{`
         main {
-          min-height: 400px;
           position: relative;
+        }
+
+        .placeholder {
+          height: 400px;
+          visibility: hidden;
         }
 
         .posts-container {

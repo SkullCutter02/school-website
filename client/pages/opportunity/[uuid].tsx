@@ -34,13 +34,15 @@ const OpportunityPage: React.FC = () => {
         ) : isError ? (
           <p>{error.message}</p>
         ) : (
-          <div className="opportunity">
-            {data.imageUrl && <img src={data.imageUrl} alt="image" />}
-            <h2>{data.name}</h2>
-            <p dangerouslySetInnerHTML={{ __html: data.description }} />
-            <br />
-            <p>Contact Email: {data.contactEmail}</p>
-          </div>
+          data && (
+            <div className="opportunity">
+              {data?.imageUrl && <img src={data.imageUrl} alt="image" />}
+              <h2>{data.name}</h2>
+              <p dangerouslySetInnerHTML={{ __html: data.description }} />
+              <br />
+              <p>Contact Email: {data.contactEmail}</p>
+            </div>
+          )
         )}
       </div>
 

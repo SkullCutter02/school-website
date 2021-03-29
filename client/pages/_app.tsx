@@ -9,6 +9,7 @@ import Navbar from "../layout/Navbar";
 
 import "../styles/styles.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import "react-medium-image-zoom/dist/styles.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClientRef = useRef(null);

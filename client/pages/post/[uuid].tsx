@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery, useQueryClient } from "react-query";
 import Skeleton from "react-loading-skeleton";
@@ -6,6 +6,7 @@ import { format, formatDistanceToNow, parseISO } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faTwitter, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { TwitterShareButton, FacebookShareButton, WhatsappShareButton } from "react-share";
+import ImageZoom from "react-medium-image-zoom";
 
 import { Post } from "../../types/Posts";
 
@@ -13,6 +14,9 @@ const PostPage: React.FC = () => {
   const router = useRouter();
   const { uuid } = router.query;
   const queryClient = useQueryClient();
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [currentImg, setCurrentImg] = useState<string>(null);
 
   const fetchPost = async (uuid: string | string[]) => {
     const res = await fetch(`/api/posts/${uuid}`);
@@ -46,6 +50,17 @@ const PostPage: React.FC = () => {
 
   return (
     <>
+      {isModalOpen && (
+        <>
+          <div className="overlay" onClick={() => setIsModalOpen(false)} />
+          <div className="image-modal">
+            <ImageZoom>
+              <img src={currentImg} alt="Not found" />
+            </ImageZoom>
+          </div>
+        </>
+      )}
+
       <div className="post-container">
         {isLoading ? (
           <>
@@ -74,7 +89,15 @@ const PostPage: React.FC = () => {
                 <div className="images">
                   <h4>Image Attachments:</h4>
                   {data.images.map((image) => (
-                    <img src={image} alt="image" key={image} />
+                    <img
+                      src={image}
+                      alt="image"
+                      key={image}
+                      onClick={() => {
+                        setIsModalOpen(true);
+                        setCurrentImg(image);
+                      }}
+                    />
                   ))}
                 </div>
               )}
@@ -111,6 +134,7 @@ const PostPage: React.FC = () => {
           margin: 30px auto;
           border: 0.8px solid #000;
           padding: 40px 80px;
+          position: relative;
         }
 
         p {
@@ -172,6 +196,31 @@ const PostPage: React.FC = () => {
           height: auto;
           box-shadow: #7e7e7e 0 0 5px;
           margin: 30px 0;
+          cursor: pointer;
+        }
+
+        .overlay {
+          position: fixed;
+          width: 100vw;
+          height: calc(100vh + 1px);
+          z-index: 3;
+          background: grey;
+          opacity: 80%;
+          transform: translateY(-74px);
+        }
+
+        .image-modal {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 5;
+        }
+
+        .image-modal img {
+          max-width: 80vw;
+          width: auto;
+          height: auto;
         }
 
         @media screen and (max-width: 900px) {

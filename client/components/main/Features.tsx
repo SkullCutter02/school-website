@@ -168,6 +168,10 @@ const Features: React.FC = () => {
           .features-container {
             grid-template-columns: 1fr 1fr;
           }
+
+          .features-container .feature p {
+            font-size: 0.85rem;
+          }
         }
       `}</style>
     </>

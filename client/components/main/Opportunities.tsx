@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
+import Link from "next/link";
 
 import { Opportunity } from "../../types/Opportunity";
 import Spinner from "../reuseable/Spinner";
@@ -41,7 +42,9 @@ const Opportunities: React.FC = () => {
                         alt="image"
                       />
                       <div className="opportunity-text">
-                        <h2>{opportunity.name.toUpperCase()}</h2>
+                        <Link href={`/opportunity/${opportunity.uuid}`}>
+                          <h2>{opportunity.name.toUpperCase()}</h2>
+                        </Link>
                         <div className="line" />
                         <p
                           className="description"
@@ -109,6 +112,9 @@ const Opportunities: React.FC = () => {
           font-size: 1.2rem;
           letter-spacing: 0.3px;
           line-height: 1.3em;
+          cursor: pointer;
+          display: inline-block;
+          align-self: flex-start;
         }
 
         .description {

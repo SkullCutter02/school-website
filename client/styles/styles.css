@@ -104,6 +104,27 @@ input:focus {
   color: #4f4f4f;
 }
 
+.page-container {
+  width: 70%;
+  margin: 30px auto;
+  border: 0.8px solid #000;
+  padding: 40px 80px;
+}
+
+@media screen and (max-width: 900px) {
+  .page-container {
+    width: 80%;
+    padding: 40px 60px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .page-container {
+    width: 85%;
+    padding: 40px 30px;
+  }
+}
+
 textarea {
   font-family: var(--font-family);
   line-height: 1.5em;

@@ -61,7 +61,7 @@ const PostPage: React.FC = () => {
         </>
       )}
 
-      <div className="post-container">
+      <div className="page-container post-container">
         {isLoading ? (
           <>
             <Skeleton width={200} height={30} style={{ marginBottom: "40px" }} />
@@ -130,10 +130,6 @@ const PostPage: React.FC = () => {
 
       <style jsx>{`
         .post-container {
-          width: 70%;
-          margin: 30px auto;
-          border: 0.8px solid #000;
-          padding: 40px 80px;
           position: relative;
         }
 
@@ -222,20 +218,6 @@ const PostPage: React.FC = () => {
           max-width: 80vw;
           width: auto;
           height: auto;
-        }
-
-        @media screen and (max-width: 900px) {
-          .post-container {
-            width: 80%;
-            padding: 40px 60px;
-          }
-        }
-
-        @media screen and (max-width: 500px) {
-          .post-container {
-            width: 85%;
-            padding: 40px 30px;
-          }
         }
       `}</style>
     </>

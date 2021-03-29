@@ -28,6 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             name="description"
             content="This is the website to the current Y11s. You'll find all the information you need here"
           />
+          <link rel="icon" href={"/favicon.ico"} />
         </Head>
         <Navbar />
         <Component {...pageProps} />

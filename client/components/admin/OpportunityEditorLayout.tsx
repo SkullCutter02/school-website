@@ -16,6 +16,7 @@ interface Props {
   defaultDescription?: string;
   defaultContactEmail?: string;
   buttonText?: string;
+  errMsgRef?: React.MutableRefObject<HTMLParagraphElement>;
 }
 
 const OpportunityEditorLayout: React.FC<Props> = ({
@@ -28,6 +29,7 @@ const OpportunityEditorLayout: React.FC<Props> = ({
   defaultDescription,
   defaultContactEmail,
   buttonText = "Create Opportunity",
+  errMsgRef,
 }) => {
   const filesRef = useRef<HTMLInputElement>(null);
 
@@ -56,6 +58,8 @@ const OpportunityEditorLayout: React.FC<Props> = ({
           onChange={(e) => setImage(URL.createObjectURL(e.target.files[0]))}
           accept="image/*"
         />
+
+        <p className="err-msg" ref={errMsgRef} />
 
         {image && (
           <div className="image">

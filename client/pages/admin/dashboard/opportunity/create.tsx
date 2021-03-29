@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import OpportunityEditorLayout from "../../../../components/admin/OpportunityEditorLayout";
 import useAuth from "../../../../hooks/useAuth";
@@ -12,6 +12,8 @@ const CreateOpportunityPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
+
+  const errMsgRef = useRef<HTMLParagraphElement>();
 
   const createOpportunity = async (e) => {
     e.preventDefault();
@@ -34,10 +36,17 @@ const CreateOpportunityPage: React.FC = () => {
           imageUrl: file.secure_url,
         }),
       });
+      const data = await res.json();
 
       if (res.ok) {
         await router.push("/admin/dashboard");
       } else {
+        if (data.error) {
+          errMsgRef.current.textContent = data.error;
+        } else {
+          errMsgRef.current.textContent = "Something went wrong";
+        }
+
         setIsLoading(false);
       }
     } catch (err) {
@@ -54,6 +63,7 @@ const CreateOpportunityPage: React.FC = () => {
         setImage={setImage}
         isLoading={isLoading}
         headerText={"Create Opportunity"}
+        errMsgRef={errMsgRef}
       />
     </>
   );

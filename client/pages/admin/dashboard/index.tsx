@@ -11,7 +11,7 @@ const DashboardPage = () => {
 
   return (
     <>
-      <main>
+      <main className="top">
         <FeaturesEditor />
         <VideosEditor />
       </main>
@@ -21,8 +21,12 @@ const DashboardPage = () => {
       </main>
 
       <style jsx>{`
+        .top {
+          margin-top: 20px;
+        }
+
         main {
-          padding: 50px 80px;
+          padding: 30px 80px 0 80px;
           display: flex;
           justify-content: space-evenly;
         }

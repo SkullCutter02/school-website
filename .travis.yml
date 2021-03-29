@@ -11,3 +11,15 @@ script:
   - docker push skullcutter02/school-website-client
   - docker push skullcutter02/school-website-api
   - docker push skullcutter02/school-website-nginx
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "school-website"
+  env: "Schoolwebsite-env"
+  bucket_name: "elasticbeanstalk-us-east-2-740995310974"
+  bucket_path: "school-website"
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

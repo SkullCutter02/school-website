@@ -23,6 +23,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Hydrate state={pageProps.dehydratedState}>
         <Head>
           <title>Y11 Interactive Website</title>
+          <meta
+            lang="en"
+            name="description"
+            content="This is the website to the current Y11s. You'll find all the information you need here"
+          />
         </Head>
         <Navbar />
         <Component {...pageProps} />

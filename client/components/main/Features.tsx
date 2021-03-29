@@ -82,7 +82,7 @@ const Features: React.FC = () => {
       <style jsx>{`
         .features-container {
           width: 100%;
-          height: 450px;
+          height: auto;
           display: grid;
           grid-template-columns: 1fr 1fr 1fr 1fr;
         }
@@ -96,6 +96,7 @@ const Features: React.FC = () => {
           text-align: center;
           padding: 60px 40px;
           font-family: "League Gothic", serif;
+          height: 100%;
         }
 
         .features-container .feature h1 {
@@ -166,8 +167,6 @@ const Features: React.FC = () => {
         @media screen and (max-width: 800px) {
           .features-container {
             grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            height: 550px;
           }
         }
       `}</style>

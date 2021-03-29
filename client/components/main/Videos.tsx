@@ -25,26 +25,13 @@ const Videos = () => {
           <p>{error.message}</p>
         ) : (
           <div className="videos">
-            {data?.length === 1 ? (
-              <>
-                <div className="placeholder" />
-                <div className="video one-video">
-                  <div className="youtube-video">
-                    <YouTube videoId={data[0].link.split("v=")[1]} />
-                  </div>
+            {data?.map((video) => (
+              <div className="video" key={video.uuid}>
+                <div className="youtube-video">
+                  <YouTube videoId={video.link.split("v=")[1]} />
                 </div>
-              </>
-            ) : (
-              <>
-                {data?.map((video) => (
-                  <div className="video" key={video.uuid}>
-                    <div className="youtube-video">
-                      <YouTube videoId={video.link.split("v=")[1]} />
-                    </div>
-                  </div>
-                ))}
-              </>
-            )}
+              </div>
+            ))}
           </div>
         )}
       </div>
@@ -75,15 +62,7 @@ const Videos = () => {
           justify-content: center;
           align-items: center;
           height: 300px;
-        }
-
-        .one-video {
-          position: absolute;
-          transform: translate(-50%, -50%);
-          top: 50%;
-          left: 50%;
-          width: 60vw;
-          height: 350px;
+          margin-bottom: 40px;
         }
 
         .youtube-video {

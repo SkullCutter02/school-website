@@ -1,0 +1,13 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+script:
+  - docker build -t skullcutter02/school-website-client ./client
+  - docker build -t skullcutter02/school-website-api ./api
+  - docker build -t skullcutter02/school-website-nginx ./nginx
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push skullcutter02/school-website-client
+  - docker push skullcutter02/school-website-api
+  - docker push skullcutter02/school-website-nginx

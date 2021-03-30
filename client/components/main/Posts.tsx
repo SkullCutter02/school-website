@@ -38,6 +38,8 @@ const Posts: React.FC = () => {
             data &&
             (data.posts.length > 0 || filter !== "") && (
               <>
+                {" "}
+                s
                 <div className="posts-information">
                   <h1>Posts</h1>
                   <div className="search-bar">
